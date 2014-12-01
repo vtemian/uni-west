@@ -1,0 +1,5 @@
+interface IEntityWithName {
+    String name;
+    public void getName(){}
+    public setName(String name){}
+}
