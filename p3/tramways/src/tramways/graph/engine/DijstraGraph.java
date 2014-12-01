@@ -8,7 +8,7 @@ import java.util.List;
 public class DijstraGraph<T> implements IWritebleGraph<T>{
     @Override
     public void addNewEdge(IEdge<T> edge) {
-        
+
     }
 
     @Override
@@ -32,7 +32,7 @@ public class DijstraGraph<T> implements IWritebleGraph<T>{
     }
 
     @Override
-    public List<IEdge> getEdges() {
+    public List<IEdge<T>> getEdges() {
         return null;
     }
 }

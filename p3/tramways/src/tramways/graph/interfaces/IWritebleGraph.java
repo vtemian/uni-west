@@ -1,8 +1,8 @@
 package tramways.graph.interfaces;
 
-public interface IWritebleGraph<T> extends IGraph<T>{
-    public void addNewEdge(IEdge<T> edge);
-    public void addNewNode(T node);
-    public void removeNode(T node);
-    public void removeEdge(IEdge<T> node);
+public interface IWritebleGraph<N> extends IGraph<N>{
+    public void addNewEdge(IEdge<N> edge);
+    public void addNewNode(N node);
+    public void removeNode(N node);
+    public void removeEdge(IEdge<N> node);
 }
