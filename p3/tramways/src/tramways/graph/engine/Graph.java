@@ -7,13 +7,16 @@ import tramways.graph.interfaces.IGraph;
 
 import java.util.*;
 
-public class Graph<Node extends INode> implements IGraph<Node>{
-    protected List<Node> nodes;
-    protected Map<Node, ArrayList<IEdge<Node>>> edgesMap = new HashMap<Node, ArrayList<IEdge<Node>>>();
+public class Graph<Node extends INode, Edge extends IEdge<Node>> implements IGraph<Node, Edge>{
+    protected Map<Node, ArrayList<Edge>> edgesMap = new HashMap<Node, ArrayList<Edge>>();
+
+    public Graph(Map<Node, ArrayList<Edge>> edgesMap) {
+        this.edgesMap = edgesMap;
+    }
 
     @Override
     public List<Node> getNodes() {
-        return nodes;
+        return (List<Node>) edgesMap.keySet();
     }
 
     @Override
@@ -31,9 +34,9 @@ public class Graph<Node extends INode> implements IGraph<Node>{
     }
 
     @Override
-    public List<IEdge<Node>> getEdges() {
-        List<IEdge<Node>> edges = new ArrayList<IEdge<Node>>();
-        for(List<IEdge<Node>> edgeList: edgesMap.values()) {
+    public List<Edge> getEdges() {
+        List<Edge> edges = new ArrayList<Edge>();
+        for(List<Edge> edgeList: edgesMap.values()) {
             edges.addAll(edgeList);
         }
         return edges;

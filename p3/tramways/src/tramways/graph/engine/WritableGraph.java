@@ -4,9 +4,16 @@ import tramways.graph.interfaces.IEdge;
 import tramways.graph.interfaces.INode;
 import tramways.graph.interfaces.IWritebleGraph;
 
-public class WritableGraph<Node extends INode> extends Graph<Node> implements IWritebleGraph<Node>{
+import java.util.ArrayList;
+import java.util.Map;
+
+public class WritableGraph<Node extends INode, Edge extends IEdge<Node>> extends Graph<Node, Edge> implements IWritebleGraph<Node, Edge>{
+    public WritableGraph(Map<Node, ArrayList<Edge>> edgesMap) {
+        super(edgesMap);
+    }
+
     @Override
-    public void addNewEdge(IEdge<Node> edge) {
+    public void addNewEdge(Edge edge) {
 
     }
 
@@ -21,7 +28,7 @@ public class WritableGraph<Node extends INode> extends Graph<Node> implements IW
     }
 
     @Override
-    public void removeEdge(IEdge<Node> node) {
+    public void removeEdge(Edge node) {
 
     }
 }

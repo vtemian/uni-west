@@ -4,8 +4,8 @@ import tramways.graph.exceptions.NodeNotFound;
 
 import java.util.List;
 
-public interface IGraph<N>{
+public interface IGraph<N, Edge>{
     public List<N> getNodes();
-    public List<IEdge<N>> getEdges();
+    public List<Edge> getEdges();
     public List<N> getNeighbors(N node) throws NodeNotFound;
 }

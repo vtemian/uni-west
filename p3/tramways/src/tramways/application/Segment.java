@@ -1,9 +1,16 @@
 package tramways.application;
 
+import tramways.graph.engine.CostEdge;
+
 import java.util.List;
 
-public class Segment {
+public class Segment extends CostEdge<Node>{
     private int length;
-    private List<Node> nodes;
     private int speed;
+
+    public Segment(Node leftNode, Node rightNode, Float cost, int length, int speed) {
+        super(leftNode, rightNode, cost);
+        this.length = length;
+        this.speed = speed;
+    }
 }
