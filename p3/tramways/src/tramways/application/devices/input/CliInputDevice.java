@@ -8,16 +8,21 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class CliInputDevice implements IInputDevice{
+
     protected Map<Node, ArrayList<Segment>> cityMap = new HashMap<Node, ArrayList<Segment>>();
 
     @Override
     public String getOption() {
-
         return null;
     }
 
     @Override
     public Map<Node, ArrayList<Segment>> getCityMap() {
         return cityMap;
+    }
+
+    @Override
+    public Node getNode(String message) {
+        return null;
     }
 }

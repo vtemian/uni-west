@@ -9,7 +9,38 @@ import java.util.List;
 public class CostEdge<Node extends INode> implements ICostEdge<Node> {
     protected Node leftNode;
     protected Node rightNode;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CostEdge)) return false;
+
+        CostEdge costEdge = (CostEdge) o;
+
+        if (!cost.equals(costEdge.cost)) return false;
+        if (!leftNode.equals(costEdge.leftNode)) return false;
+        if (!rightNode.equals(costEdge.rightNode)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = leftNode.hashCode();
+        result = 31 * result + rightNode.hashCode();
+        result = 31 * result + cost.hashCode();
+        return result;
+    }
+
     protected Float cost;
+
+    public Node getLeftNode() {
+        return leftNode;
+    }
+
+    public Node getRightNode() {
+        return rightNode;
+    }
 
     public CostEdge(Node leftNode, Node rightNode, Float cost) {
         this.leftNode = leftNode;

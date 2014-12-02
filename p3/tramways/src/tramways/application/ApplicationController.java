@@ -1,6 +1,7 @@
 package tramways.application;
 
 import tramways.application.devices.input.DummyInputDevice;
+import tramways.application.devices.output.CliOutputDevice;
 import tramways.application.devices.output.OutputDevice;
 import tramways.graph.alghoritms.BFS;
 import tramways.graph.engine.components.Graph;
@@ -12,12 +13,12 @@ import java.util.ArrayList;
 
 public class ApplicationController {
     DummyInputDevice in = new DummyInputDevice();
-    OutputDevice out = new OutputDevice();
+    CliOutputDevice out = new CliOutputDevice();
 
     public void run() throws NodeNotFound {
         TestGraph graph = new TestGraph(in.getCityMap());
 
-        while(true) {
+        //while(true) {
             String option = in.getOption();
 
             if (option.equals("fastest")) {
@@ -33,20 +34,20 @@ public class ApplicationController {
                 getAllConnections(graph);
             }
             if (option.equals("exit")){
-                break;
+                //break;
             }
-        }
+        //}
     }
 
     public void getAllConnections(IGraph graph) throws NodeNotFound {
-        BFS algo = new BFS<Node>(graph);
-        Node startNode = in.generateNode("a");
-        Node endNode = in.generateNode("e");
-        ArrayList<ArrayList<INode>> routes = algo.compute(startNode, endNode);
-        for(ArrayList<INode> route: routes){
-            for(INode node: route){
-                System.out.println(node.getName());
-            }
+        BFS getAllRoutes = new BFS<Node, Segment>(graph);
+
+        Node startNode = in.getNode("a");
+        Node endNode = in.getNode("d");
+
+        ArrayList<ArrayList<Node>> routes = getAllRoutes.compute(startNode, endNode);
+        for(ArrayList<Node> route: routes){
+            out.showRoute(route);
         }
     }
 

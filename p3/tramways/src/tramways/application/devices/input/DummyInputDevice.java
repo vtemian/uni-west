@@ -6,10 +6,27 @@ import tramways.application.Station;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class DummyInputDevice extends CliInputDevice{
     public DummyInputDevice() {
+        generateCityMap();
+    }
+
+    public String getOption(){
+        return "all";
+    }
+
+    @Override
+    public Node getNode(String name) {
+        for(Node node: cityMap.keySet()) {
+            if(node.getName().equals(name)) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    public void generateCityMap(){
         Node a = generateNode("a");
         Node b = generateNode("b");
         Node c = generateNode("c");
@@ -21,6 +38,11 @@ public class DummyInputDevice extends CliInputDevice{
         Segment q = new Segment(c, d, new Float(5.0), 70, 50);
         Segment w = new Segment(d, e, new Float(5.0), 70, 50);
         Segment s = new Segment(b, e, new Float(5.0), 70, 50);
+        Segment f = new Segment(b, a, new Float(5.0), 70, 50);
+        Segment q1 = new Segment(d, c, new Float(5.0), 70, 50);
+        Segment e1 = new Segment(e, d, new Float(5.0), 70, 50);
+        Segment e2 = new Segment(e, b, new Float(5.0), 70, 50);
+
 
         List<Segment> segments = new ArrayList<Segment>();
         segments.add(first);
@@ -33,15 +55,18 @@ public class DummyInputDevice extends CliInputDevice{
 
         List<Segment> segments2 = new ArrayList<Segment>();
         segments2.add(s);
+        segments2.add(f);
         cityMap.put(b, (ArrayList<Segment>) segments2);
 
         List<Segment> segments3 = new ArrayList<Segment>();
         segments3.add(w);
+        segments3.add(q1);
         cityMap.put(d, (ArrayList<Segment>) segments3);
-    }
 
-    public String getOption(){
-        return "all";
+        List<Segment> segments4 = new ArrayList<Segment>();
+        segments4.add(e1);
+        segments4.add(e2);
+        cityMap.put(e, (ArrayList<Segment>) segments4);
     }
 
     public Node generateNode(String name){

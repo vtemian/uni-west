@@ -1,70 +1,78 @@
 package tramways.graph.alghoritms;
 
 import tramways.graph.exceptions.NodeNotFound;
+import tramways.graph.exceptions.NullNodeException;
+import tramways.graph.interfaces.ICostEdge;
 import tramways.graph.interfaces.IGraph;
 import tramways.graph.interfaces.INode;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
-public class BFS<Node extends INode> extends RouteGraphAlgorithm {
-    public Map<Node, ArrayList<Node>> routes = new HashMap<Node, ArrayList<Node>>();
-    private ArrayList<ArrayList<Node>> r = new ArrayList<ArrayList<Node>>();
+public class BFS<Node extends INode, Edge extends ICostEdge<Node>> extends RouteGraphAlgorithm {
+    public Map<Node, ArrayList<Node>> routesMap = new HashMap<Node, ArrayList<Node>>();
+    private ArrayList<ArrayList<Node>> routes = new ArrayList<ArrayList<Node>>();
 
     public BFS(IGraph graph) {
         super(graph);
     }
 
     public ArrayList<ArrayList<Node>> compute(Node startNode, Node endNode) throws NodeNotFound {
-        ArrayList<Node> visited = new ArrayList<Node>();
-        routes.put(startNode, null);
+        ArrayList<Edge> neighbors = new ArrayList<Edge>();
+        ArrayList<Edge> visited = new ArrayList<Edge>();
+        routesMap.put(startNode, null);
 
-        Queue<Node> queue = new LinkedList<Node>();
+        Queue<Edge> queue = new LinkedList<Edge>();
 
-        queue.add(startNode);
-        visited.add(startNode);
+        try {
+            neighbors = graph.getNeighborsEdge(startNode);
+        }catch (NodeNotFound notFound) {
+            notFound.printStackTrace();
+        } catch (NullNodeException e) {
+            e.printStackTrace();
+        }
+
+        queue.add(neighbors.get(0));
 
         while(!queue.isEmpty()) {
-            Node toVisit = queue.remove();
-            visited.add(toVisit);
+            Edge toVisit = queue.remove();
 
-            ArrayList<Node> neighbors = new ArrayList<Node>();
             try {
-                neighbors = graph.getNeighbors(toVisit);
+                neighbors = graph.getNeighborsEdge(toVisit.getLeftNode());
             }catch (NodeNotFound notFound) {
                 continue;
+            } catch (NullNodeException e) {
+                e.printStackTrace();
             }
 
-            for(Node neighbor: neighbors){
+            for(Edge neighbor: neighbors){
                 if(visited.contains(neighbor)) continue;
 
                 queue.add(neighbor);
 
                 ArrayList<Node> nearby = new ArrayList<Node>();
-                if(routes.containsKey(neighbor)) {
-                    nearby = routes.get(neighbor);
+                if(neighbor.getRightNode() != startNode && routesMap.containsKey(neighbor.getRightNode())) {
+                    nearby = routesMap.get(neighbor.getRightNode());
                 }
 
-                nearby.add(toVisit);
-                routes.put(neighbor, nearby);
+                nearby.add(toVisit.getLeftNode());
+                routesMap.put(neighbor.getRightNode(), nearby);
             }
+            visited.add(toVisit);
         }
-        for(Node toVisit: routes.get(endNode)){
+
+        for(Node toVisit: routesMap.get(endNode)){
             ArrayList<Node> currentRoute = new ArrayList<Node>();
             composeRoutes(toVisit, currentRoute);
         }
-        return r;
+
+        return routes;
     }
 
     private void composeRoutes(Node visiting, ArrayList<Node> currentRoute){
-        if(routes.get(visiting) == null) {
-            r.add((ArrayList<Node>) currentRoute.clone());
+        if(routesMap.get(visiting) == null) {
+            routes.add((ArrayList<Node>) currentRoute.clone());
         }else{
-
-            for(Node node: routes.get(visiting)){
+            for(Node node: routesMap.get(visiting)){
                 currentRoute.add(node);
                 composeRoutes(node, currentRoute);
                 currentRoute.remove(node);

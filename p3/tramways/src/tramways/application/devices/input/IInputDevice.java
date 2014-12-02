@@ -9,4 +9,5 @@ import java.util.Map;
 public interface IInputDevice {
     public String getOption();
     public Map<Node, ArrayList<Segment>> getCityMap();
+    public Node getNode(String message);
 }
