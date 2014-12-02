@@ -1,4 +1,4 @@
-package tramways.graph.engine;
+package tramways.graph.engine.components;
 
 import tramways.graph.interfaces.INode;
 import tramways.graph.interfaces.IWritableCostEdge;

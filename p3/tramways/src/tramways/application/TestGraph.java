@@ -1,7 +1,6 @@
 package tramways.application;
 
-import tramways.graph.engine.CostEdge;
-import tramways.graph.engine.Graph;
+import tramways.graph.engine.components.Graph;
 
 import java.util.ArrayList;
 import java.util.Map;

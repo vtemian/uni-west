@@ -1,4 +1,4 @@
-package tramways.graph.engine;
+package tramways.graph.engine.components;
 
 import tramways.graph.exceptions.NodeNotFound;
 import tramways.graph.interfaces.IEdge;
@@ -20,8 +20,11 @@ public class Graph<Node extends INode, Edge extends IEdge<Node>> implements IGra
     }
 
     @Override
-    public List<Node> getNeighbors(Node node) throws NodeNotFound{
-        List<Node> neighbors = new ArrayList<Node>();
+    public ArrayList<Node> getNeighbors(Node node) throws NodeNotFound{
+        ArrayList<Node> neighbors = new ArrayList<Node>();
+
+        if(node == null)
+            throw new NodeNotFound();
 
         if(!edgesMap.containsKey(node))
             throw new NodeNotFound();

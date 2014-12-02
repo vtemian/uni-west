@@ -1,35 +1,62 @@
 package tramways.application;
 
+import tramways.application.devices.input.DummyInputDevice;
+import tramways.application.devices.output.OutputDevice;
+import tramways.graph.alghoritms.BFS;
+import tramways.graph.engine.components.Graph;
 import tramways.graph.exceptions.NodeNotFound;
+import tramways.graph.interfaces.IGraph;
+import tramways.graph.interfaces.INode;
 
-import java.util.List;
 import java.util.ArrayList;
 
 public class ApplicationController {
-    InputDevice in = new InputDevice();
+    DummyInputDevice in = new DummyInputDevice();
     OutputDevice out = new OutputDevice();
 
-    public void run(){
-        // all the logic goes here
+    public void run() throws NodeNotFound {
         TestGraph graph = new TestGraph(in.getCityMap());
 
-        Station balcescu_7 = new Station("7 balcesvu");
-        Station balcescu_8= new Station("8 balcesvu");
+        while(true) {
+            String option = in.getOption();
 
-        List<Station> balcescu = new ArrayList<Station>();
-        balcescu.add(balcescu_7);
-        balcescu.add(balcescu_8);
+            if (option.equals("fastest")) {
+                getFastestRoute(graph);
+            }
+            if (option.equals("shortest")){
+                getShortestRoute(graph);
+            }
+            if (option.equals("cheapest")){
+                getCheapestRoute(graph);
+            }
+            if (option.equals("all")){
+                getAllConnections(graph);
+            }
+            if (option.equals("exit")){
+                break;
+            }
+        }
+    }
 
-        Node a = new Node("a", new Float(45.0), new Float(45.0), balcescu);
-        try {
-            ArrayList<Node> nodes = new ArrayList<Node>();
-            nodes = (ArrayList<Node>) graph.getNeighbors(a);
-            for(Node node: nodes){
+    public void getAllConnections(IGraph graph) throws NodeNotFound {
+        BFS algo = new BFS<Node>(graph);
+        Node startNode = in.generateNode("a");
+        Node endNode = in.generateNode("e");
+        ArrayList<ArrayList<INode>> routes = algo.compute(startNode, endNode);
+        for(ArrayList<INode> route: routes){
+            for(INode node: route){
                 System.out.println(node.getName());
             }
-
-        } catch (NodeNotFound nodeNotFound) {
-            nodeNotFound.printStackTrace();
         }
+    }
+
+    public void getShortestRoute(IGraph graph) {
+
+    }
+    public void getCheapestRoute(IGraph graph) {
+
+    }
+    public void getFastestRoute(IGraph graph) {
+
     }
 }

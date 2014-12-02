@@ -1,8 +1,6 @@
 package tramways.application;
 
-import tramways.graph.engine.CostEdge;
-
-import java.util.List;
+import tramways.graph.engine.components.CostEdge;
 
 public class Segment extends CostEdge<Node>{
     private int length;
