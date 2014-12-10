@@ -1,4 +1,4 @@
-package p3.istate_engine;
+package stateEngine.interfaces;
 
 public interface ITransaction {
     public IState getStartState();

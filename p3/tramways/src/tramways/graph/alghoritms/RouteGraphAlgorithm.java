@@ -1,25 +1,15 @@
 package tramways.graph.alghoritms;
 
 import tramways.graph.exceptions.NodeNotFound;
+import tramways.graph.interfaces.IEdge;
 import tramways.graph.interfaces.IGraph;
 import tramways.graph.interfaces.INode;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-public abstract class RouteGraphAlgorithm {
-    protected IGraph graph;
-
-    public RouteGraphAlgorithm(IGraph graph) {
-        this.graph = graph;
-
-    }
-
-    public IGraph getGraph() {
-        return graph;
-    }
-
-    public void setGraph(IGraph graph) {
-        this.graph = graph;
-    }
-
+public interface RouteGraphAlgorithm<Node extends INode, Edge extends IEdge<Node>, CostType extends Number> {
+    public Map<Node, ArrayList<Node>>  compute(Node startNode, Node endNode) throws NodeNotFound;
+    public IGraph getGraph();
+    public void setGraph(IGraph graph);
 }

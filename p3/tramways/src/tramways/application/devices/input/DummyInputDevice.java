@@ -13,7 +13,7 @@ public class DummyInputDevice extends CliInputDevice{
     }
 
     public String getOption(){
-        return "all";
+        return "cheapest";
     }
 
     @Override
@@ -33,15 +33,15 @@ public class DummyInputDevice extends CliInputDevice{
         Node d = generateNode("d");
         Node e = generateNode("e");
 
-        Segment first = new Segment(a, b, new Float(5.0), 70, 50);
-        Segment second = new Segment(a, c, new Float(5.0), 70, 50);
-        Segment q = new Segment(c, d, new Float(5.0), 70, 50);
-        Segment w = new Segment(d, e, new Float(5.0), 70, 50);
-        Segment s = new Segment(b, e, new Float(5.0), 70, 50);
-        Segment f = new Segment(b, a, new Float(5.0), 70, 50);
-        Segment q1 = new Segment(d, c, new Float(5.0), 70, 50);
-        Segment e1 = new Segment(e, d, new Float(5.0), 70, 50);
-        Segment e2 = new Segment(e, b, new Float(5.0), 70, 50);
+        Segment first = new Segment(a, b, new Float(0.2), 70, 50);
+        Segment second = new Segment(a, c, new Float(2.0), 70, 50);
+        Segment q = new Segment(c, d, new Float(3.0), 70, 50);
+        Segment w = new Segment(d, e, new Float(2.0), 70, 50);
+        Segment s = new Segment(b, e, new Float(1.0), 70, 50);
+        Segment f = new Segment(b, a, new Float(0.2), 70, 50);
+        Segment q1 = new Segment(d, c, new Float(3.0), 70, 50);
+        Segment e1 = new Segment(e, d, new Float(2.0), 70, 50);
+        Segment e2 = new Segment(e, b, new Float(1.0), 70, 50);
 
 
         List<Segment> segments = new ArrayList<Segment>();
