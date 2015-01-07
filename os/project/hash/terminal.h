@@ -24,7 +24,7 @@ int prepare_terminal(int term_fd, struct termios *p) {
 
     // set new terminal settings
     term = *p;
-    term.c_lflag &= ~(ICANON); // set canonical mode + echo chars on screen
+    term.c_lflag &= ~(ICANON | ECHO | ECHOE); // set canonical mode + echo chars on screen
     term.c_cc[VMIN] = 0;              // minimum chars
     term.c_cc[VTIME] = 0;             // timeout for noncanonical read
 
