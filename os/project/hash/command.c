@@ -8,6 +8,7 @@ char* get_command(list_t *history) {
     char* in_command = malloc(COMMAND_LEN);
     int index=0, read_nr=0, term_fd=fileno(stdin), reading=1;
     char a[]="\33[K\r> \33[K";
+    void *command;
 
     struct termios  attr;
     struct termios *current_terminal=&attr;
@@ -55,7 +56,13 @@ char* get_command(list_t *history) {
                          reading = 0;
                          break;
                      case 65:
-                         strcpy(in_command, go_up(history));
+                         command = go_up(history);
+                         if(command == NULL){
+                            strcpy(in_command, "");
+                         }
+                         else{
+                            strcpy(in_command, ((history_nt*)command)->command);
+                         }
 
                          index = strlen(in_command) + 1;
                          if(index == 1)
@@ -65,14 +72,14 @@ char* get_command(list_t *history) {
                          write(STDOUT_FILENO, in_command, strlen(in_command));
                          break;
                      case 66:
-                         strcpy(in_command, go_down(history));
+                         strcpy(in_command, ((history_nt*)go_down(history))->command);
+                         printf("%s comanda e", in_command);
 
-                         index = strlen(in_command) + 1;
-                         if(index == 1)
+                         index = strlen(in_command) + 1; if(index == 1)
                              index = 0;
 
-                         write(STDOUT_FILENO, &a, strlen(a));
-                         write(STDOUT_FILENO, in_command, strlen(in_command));
+                         //write(STDOUT_FILENO, &a, strlen(a));
+                         //write(STDOUT_FILENO, in_command, strlen(in_command));
                          break;
                  }
                  break;
@@ -93,7 +100,7 @@ list_t *load_commands(char *path) {
     char *dir_path, *command_path, *aux_command_path;
 
     list_t *commands_list = malloc(sizeof(list_t));
-    init_list(commands_list, COMMANDS_NR);
+    init_list(commands_list, COMMANDS_NR, sizeof(command_nt));
 
     // split the path by :
     dir_path = strtok(path, ":");
@@ -105,13 +112,17 @@ list_t *load_commands(char *path) {
 
             while ((ent=readdir(dir)) != NULL) {
                 if(strcmp(".", ent->d_name) != 0 && strcmp("..", ent->d_name) != 0){
-                    aux_command_path = malloc(sizeof(command_path) + sizeof(ent->d_name) + 1);
+                    command_nt *node = malloc(sizeof(command_nt));
 
-                    strcpy(aux_command_path, command_path);
-                    strcat(aux_command_path, "/");
-                    strcat(aux_command_path, ent->d_name);
+                    node->absolute_path = malloc(sizeof(command_path) + sizeof(ent->d_name) + 1);
+                    node->relative_path = malloc(sizeof(ent->d_name));
 
-                    add_node(commands_list, aux_command_path);
+                    strcpy(node->absolute_path, command_path);
+                    strcat(node->absolute_path, "/");
+                    strcat(node->absolute_path, ent->d_name);
+                    strcpy(node->relative_path, ent->d_name);
+
+                    add_node(commands_list, node);
                 }
             }
             closedir (dir);
@@ -121,7 +132,14 @@ list_t *load_commands(char *path) {
     return commands_list;
 }
 
-int execute_command(char *command, char *args) {
-    printf("%s to execute with %s", command, args);
+int execute_command(char *command, char **args) {
+    pid_t pid;
+
+    if ((pid = fork()) == -1)
+        perror("fork error");
+    else if (pid == 0) {
+        execv(command, args);
+        printf("Return not expected. Must be an execv error.n");
+    }
     return 1;
 }

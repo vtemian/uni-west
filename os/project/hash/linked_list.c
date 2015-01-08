@@ -3,12 +3,14 @@
 #include <string.h>
 
 #include "linked_list.h"
+#include "history.h"
 
-void init_list(list_t *self, int max_size) {
+void init_list(list_t *self, int max_size, int element_size) {
     self->current_size = 0;
     self->head = NULL;
     self->tail = NULL;
     self->max_size = max_size;
+    self->element_size = element_size;
 }
 
 void show_all(list_t *self) {
@@ -16,17 +18,16 @@ void show_all(list_t *self) {
     int index=1;
 
     while(index <= self->current_size) {
-        fprintf(stdout, "%s\n", current_node->command);
+        fprintf(stdout, "%s\n", (char *)current_node->data);
         current_node = current_node->next;
         index++;
     }
 }
 
-void add_node(list_t *self, char *command){
-    node_t* new_node = malloc(sizeof(node_t));
+void* add_node(list_t *self, void *entry){
+    node_t* new_node = (node_t*)malloc(sizeof(node_t));
     new_node->prev = new_node->next = NULL;
-
-    strcpy(new_node->command, command);
+    new_node->data = entry;
 
     if(self->head == NULL){
         self->head = self->tail = new_node;
@@ -44,18 +45,17 @@ void add_node(list_t *self, char *command){
         self->current_size--;
     }
 
+    return new_node->data;
 }
 
-char *find(list_t *self, char *entry) {
-    char *command;
+void *find(list_t *self, void *entry, int(*comparator)(void*, void*)) {
     node_t* current_node = self->head;
 
     while(current_node != NULL) {
-        if(strstr(entry, current_node->command) != NULL){
-            command = malloc(sizeof(current_node->command));
-            strcpy(command, current_node->command);
-            return command;
+        if(comparator((void*)current_node->data, (void*)entry)){
+            return current_node->data;
         }
+        current_node = current_node->prev;
     }
 
     return NULL;

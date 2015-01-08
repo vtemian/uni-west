@@ -17,8 +17,13 @@
 
 #include "linked_list.h"
 
+typedef struct command_node {
+    char *relative_path;
+    char *absolute_path;
+} command_nt;
+
 char* get_command(list_t *history);
 list_t *load_commands(char *path);
-int execute_command(char *command, char *argv);
+int execute_command(char *command, char **argv);
 
 #endif

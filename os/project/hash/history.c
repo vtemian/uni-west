@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -15,7 +16,7 @@ list_t* load_history(){
     char line[LINE_LEN];
 
     list_t *commands_list = malloc(sizeof(list_t));
-    init_list(commands_list, COMMANDS_NR);
+    init_list(commands_list, COMMANDS_NR, sizeof(history_nt));
 
     aux_line[0] = '\0';
 
@@ -27,8 +28,7 @@ list_t* load_history(){
     history_fd = open(history_file, O_CREAT | O_RDWR, S_IRWXU | S_IRWXG);
     if(history_fd == -1)
         file_error(history_file);
-
-    do{
+do{
         read_nr = read(history_fd, &line, sizeof line);
         if(!read_nr)
             break;
@@ -53,13 +53,19 @@ list_t* load_history(){
 }
 
 void add_command(list_t *commands_list, char* command) {
+    history_nt *node = (history_nt*)malloc(sizeof(history_nt));
+    //node->command = malloc(sizeof(command));
+    strcpy(node->command, command);
+    printf("comanda: %s", node->command);
+
     if(strcmp(command, "") != 0){
-        add_node(commands_list, command);
+        node = (history_nt*)add_node(commands_list, node);
+        printf("comanda: %s %d", node->command, sizeof node->command);
         reset_history();
     }
 }
 
-char* go_up(list_t *history) {
+void* go_up(list_t *history) {
     int index = 0;
     node_t *current_node = history->head;
 
@@ -71,13 +77,13 @@ char* go_up(list_t *history) {
 
     if(current_node != NULL){
         history_offset++;
-        return current_node->command;
+        return current_node->data;
     } else {
-        return "";
+        return NULL;
     }
 }
 
-char* go_down(list_t *history) {
+void* go_down(list_t *history) {
     int index = 0;
     node_t *current_node = history->head;
 
@@ -93,7 +99,7 @@ char* go_down(list_t *history) {
 
     if(current_node != NULL){
         history_offset--;
-        return current_node->command;
+        return current_node->data;
     } else {
         return "";
     }
