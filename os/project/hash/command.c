@@ -1,3 +1,5 @@
+#include "sys/wait.h"
+
 #include "command.h"
 #include "terminal.h"
 #include "history.h"
@@ -72,14 +74,19 @@ char* get_command(list_t *history) {
                          write(STDOUT_FILENO, in_command, strlen(in_command));
                          break;
                      case 66:
-                         strcpy(in_command, ((history_nt*)go_down(history))->command);
-                         printf("%s comanda e", in_command);
+                         command = go_down(history);
+                         if(command == NULL){
+                            strcpy(in_command, "");
+                         }
+                         else{
+                            strcpy(in_command, ((history_nt*)command)->command);
+                         }
 
                          index = strlen(in_command) + 1; if(index == 1)
                              index = 0;
 
-                         //write(STDOUT_FILENO, &a, strlen(a));
-                         //write(STDOUT_FILENO, in_command, strlen(in_command));
+                         write(STDOUT_FILENO, &a, strlen(a));
+                         write(STDOUT_FILENO, in_command, strlen(in_command));
                          break;
                  }
                  break;
@@ -133,13 +140,17 @@ list_t *load_commands(char *path) {
 }
 
 int execute_command(char *command, char **args) {
-    pid_t pid;
+    int status;
+    pid_t pid, wpid;
 
     if ((pid = fork()) == -1)
         perror("fork error");
     else if (pid == 0) {
         execv(command, args);
         printf("Return not expected. Must be an execv error.n");
+    } else {
+        while((wpid = wait(&status)) > 0);
     }
+
     return 1;
 }

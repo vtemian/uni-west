@@ -54,13 +54,10 @@ do{
 
 void add_command(list_t *commands_list, char* command) {
     history_nt *node = (history_nt*)malloc(sizeof(history_nt));
-    //node->command = malloc(sizeof(command));
     strcpy(node->command, command);
-    printf("comanda: %s", node->command);
 
     if(strcmp(command, "") != 0){
-        node = (history_nt*)add_node(commands_list, node);
-        printf("comanda: %s %d", node->command, sizeof node->command);
+        add_node(commands_list, node);
         reset_history();
     }
 }

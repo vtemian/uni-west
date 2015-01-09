@@ -22,6 +22,7 @@ char **get_arguments(char *command) {
         index++;
         argument = strtok(NULL, " ");
     }
+    args[index] = NULL;
     return args;
 }
 
@@ -33,16 +34,17 @@ int main() {
     command_nt *result = malloc(sizeof(command_nt));
 
     history = load_history();
-    //commands = load_commands(path);
+    commands = load_commands(path);
 
     // read the command
     while(1){
         raw_command = get_command(history);
+        if(strlen(raw_command) == 0) continue;
         prepared_command = get_arguments(raw_command);
         result = find(commands, prepared_command[0], comparator);
 
         if(result != NULL){
-            execute_command(((command_nt*)result)->absolute_path, prepared_command + 1);
+            execute_command(((command_nt*)result)->absolute_path, prepared_command);
         }else{
             //printf("Command %s is invalid", prepared_command[0]);
         }
