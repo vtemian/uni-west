@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
-
 void do_command(char ***commands, int commands_nr, int in_fd) {
     pid_t pid;
     int pipes[2];
@@ -59,8 +58,7 @@ char **get_arguments(char *command) {
 
 char ***parse_command(char *command, int *commands_nr){
     int index=0,i;
-    char *tmp_commands = malloc(strlen(command) * sizeof(char)), *aux_command;
-    char **arguments = malloc(sizeof(char**));
+    char *aux_command;
     char **aux_commands = malloc(sizeof(char***));
     char ***commands = malloc(sizeof(char***));
 
@@ -83,7 +81,8 @@ char ***parse_command(char *command, int *commands_nr){
 int main() {
     int commands_nr=0;
 
-    char command[] = {"/bin/cat ash.c | /bin/grep int | /bin/grep 0 | /bin/grep ="};
+    //char command[] = {"/bin/cat ash.c | /bin/grep int | /bin/grep 0 | /bin/grep ="};
+    char command[] = {"/bin/cat ash.c"};
     char ***commands = parse_command(command, &commands_nr);
 
     do_command(commands, commands_nr, STDIN_FILENO);

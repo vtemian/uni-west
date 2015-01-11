@@ -6,8 +6,11 @@
 #include "errors.h"
 #include "keyboard.h"
 
-char* get_command(list_t *history) {
-    unsigned char in_char;
+int comparator(void *loaded_command, void *command){
+  return strcmp(((command_nt*)loaded_command)->relative_path, (char *)command) == 0;
+}
+
+char* get_command(list_t *history) { unsigned char in_char;
     char* in_command = malloc(COMMAND_LEN);
     int index=0, read_nr=0, term_fd=fileno(stdin), reading=1;
     char a[]="\33[K\r> \33[K";
@@ -133,25 +136,114 @@ list_t *load_commands(char *path) {
                     add_node(commands_list, node);
                 }
             }
-            closedir (dir);
+            free(command_path);
+            closedir(dir);
         }
         dir_path = strtok(NULL, ":");
     }
     return commands_list;
 }
 
-int execute_command(char *command, char **args) {
-    int status;
-    pid_t pid, wpid;
+int execute(char *raw_command, list_t *loaded_commands) {
+    pid_t pid;
+    int commands_nr=0, status;
+    char ***parsed_commands=malloc(sizeof(char***));
 
-    if ((pid = fork()) == -1)
-        perror("fork error");
-    else if (pid == 0) {
-        execv(command, args);
-        printf("Return not expected. Must be an execv error.n");
-    } else {
-        while((wpid = wait(&status)) > 0);
+    parsed_commands = parse_command(raw_command, &commands_nr, loaded_commands);
+
+    pid = fork();
+    if(pid == 0){
+        run(parsed_commands, commands_nr, STDIN_FILENO);
+    }else{
+        while((pid = wait(&status)) > 0);
     }
 
     return 1;
+}
+
+char ***parse_command(char *command, int *commands_nr, list_t* loaded_commands){
+    command_nt *result = malloc(sizeof(command_nt));
+
+    int index=0,i;
+    char *aux_command;
+    char **prepared_command;
+
+    char **aux_commands = malloc(sizeof(char***));
+    char ***commands = malloc(sizeof(char***));
+
+    aux_command = strtok(command, "|");
+    while(aux_command != NULL){
+        aux_commands[index] = malloc(sizeof(char*));
+        aux_commands[index] = aux_command;
+        *commands_nr += 1;
+        index += 1;
+        aux_command = strtok(NULL, "|");
+    }
+
+    for(i=0; i<index; i++) {
+        prepared_command = get_arguments(aux_commands[i]);
+
+        result = find(loaded_commands, prepared_command[0], comparator);
+        if(result != NULL) {
+            commands[i] = malloc(sizeof(char***));
+            prepared_command[0] = ((command_nt*)result)->absolute_path;
+            commands[i] = prepared_command;
+        }else {
+            //TODO: report error
+        }
+    }
+
+    return commands;
+}
+
+char **get_arguments(char *command) {
+    int index=0;
+    char *argument;
+    char **args = malloc(100 * sizeof(char*));
+    args[index] = malloc(sizeof(char*));
+    args[0][0] = '\0';
+
+    argument = strtok(command, " ");
+    while(argument != NULL){
+        args[index] = malloc(sizeof(char*));
+        strcpy(args[index], argument);
+        index++;
+        argument = strtok(NULL, " ");
+    }
+    args[index] = NULL;
+    return args;
+}
+
+void run(char ***commands, int commands_nr, int in_fd) {
+    pid_t pid;
+    int pipes[2], status;
+
+    if(commands_nr == 0){
+        exit(1);
+    }
+    if(commands_nr == 1){
+        if(in_fd != STDIN_FILENO){
+            if(dup2(in_fd, STDIN_FILENO) != -1)
+               close(in_fd);
+        }
+        execv(commands[0][0], commands[0]);
+    }else{
+        if ((pipe(pipes) == -1) || ((pid = fork()) == -1)) {
+            perror("error when we initialized pipes");
+        } if (pid == 0){ /* child executes current command */
+            close(pipes[0]);
+            if (dup2(in_fd, STDIN_FILENO) == -1) /*read from in_fd */
+                perror("Failed to redirect stdin");
+            if (dup2(pipes[1], STDOUT_FILENO) == -1)   /*write to fd[1]*/
+                perror("Failed to redirect stdout");
+            else if ((close(pipes[1]) == -1))
+                perror("Failed to close extra pipe descriptors");
+            else {
+                execv(commands[0][0], commands[0]);
+            }
+        }
+        close(pipes[1]);   /* parent executes the rest of commands */
+        close(in_fd);
+        run(commands + 1, commands_nr - 1, pipes[0]);
+    }
 }

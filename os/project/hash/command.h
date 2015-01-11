@@ -24,6 +24,9 @@ typedef struct command_node {
 
 char* get_command(list_t *history);
 list_t *load_commands(char *path);
-int execute_command(char *command, char **argv);
+int execute(char *command, list_t *commands);
+char ***parse_command(char *command, int *commands_nr, list_t *loaded_commands);
+char **get_arguments(char *command);
+void run(char ***commands, int commands_nr, int in_fd);
 
 #endif
