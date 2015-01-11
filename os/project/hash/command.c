@@ -4,6 +4,7 @@
 #include "terminal.h"
 #include "history.h"
 #include "errors.h"
+#include "keyboard.h"
 
 char* get_command(list_t *history) {
     unsigned char in_char;
@@ -45,19 +46,19 @@ char* get_command(list_t *history) {
                          in_command[index++] = in_char;
                          write(STDOUT_FILENO, &in_char, 1);
                          break;
-                     case 127:
+                     case BACKSPACE:
                          index = index > 0 ? index - 1: 0;
                          in_command[index] = '\0';
                          write(STDOUT_FILENO, &a, strlen(a));
                          write(STDOUT_FILENO, in_command, strlen(in_command));
                          break;
-                     case '\n':
+                     case ENTER:
                          in_command[index] = '\0';
                          write(STDOUT_FILENO, &in_char, 1);
                          add_command(history, in_command);
                          reading = 0;
                          break;
-                     case 65:
+                     case ARROW_UP:
                          command = go_up(history);
                          if(command == NULL){
                             strcpy(in_command, "");
@@ -73,7 +74,7 @@ char* get_command(list_t *history) {
                          write(STDOUT_FILENO, &a, strlen(a));
                          write(STDOUT_FILENO, in_command, strlen(in_command));
                          break;
-                     case 66:
+                     case ARROW_DOWN:
                          command = go_down(history);
                          if(command == NULL){
                             strcpy(in_command, "");

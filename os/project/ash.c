@@ -40,6 +40,7 @@ int main() {
     while(1){
         raw_command = get_command(history);
         if(strlen(raw_command) == 0) continue;
+
         prepared_command = get_arguments(raw_command);
         result = find(commands, prepared_command[0], comparator);
 
