@@ -17,9 +17,13 @@
 
 #include "linked_list.h"
 
+typedef void (*implementation)(int argc, char** argv);
+
 typedef struct command_node {
-    char *relative_path;
-    char *absolute_path;
+    char *name;                        // name of the command
+
+    char *absolute_path;               // absolute path to executable, used for execv
+    implementation impl; // if it's a custom command, we have our own implementation
 } command_nt;
 
 char* get_command(list_t *history);

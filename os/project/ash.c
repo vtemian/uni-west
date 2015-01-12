@@ -17,6 +17,7 @@ int main() {
     while(1){
         raw_command = get_command(history);
         if(strlen(raw_command) == 0) continue;
+
         execute(raw_command, commands);
     }
 

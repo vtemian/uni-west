@@ -5,9 +5,10 @@
 #include "history.h"
 #include "errors.h"
 #include "keyboard.h"
+#include "commands/init.h"
 
 int comparator(void *loaded_command, void *command){
-  return strcmp(((command_nt*)loaded_command)->relative_path, (char *)command) == 0;
+  return strcmp(((command_nt*)loaded_command)->name, (char *)command) == 0;
 }
 
 char* get_command(list_t *history) { unsigned char in_char;
@@ -70,7 +71,7 @@ char* get_command(list_t *history) { unsigned char in_char;
                             strcpy(in_command, ((history_nt*)command)->command);
                          }
 
-                         index = strlen(in_command) + 1;
+                         index = strlen(in_command);
                          if(index == 1)
                              index = 0;
 
@@ -104,14 +105,11 @@ char* get_command(list_t *history) { unsigned char in_char;
     return in_command;
 }
 
-list_t *load_commands(char *path) {
+list_t *_load_from_path(list_t *commands_list, char *path){
     DIR *dir;
     struct dirent *ent;
 
     char *dir_path, *command_path, *aux_command_path;
-
-    list_t *commands_list = malloc(sizeof(list_t));
-    init_list(commands_list, COMMANDS_NR, sizeof(command_nt));
 
     // split the path by :
     dir_path = strtok(path, ":");
@@ -126,12 +124,13 @@ list_t *load_commands(char *path) {
                     command_nt *node = malloc(sizeof(command_nt));
 
                     node->absolute_path = malloc(sizeof(command_path) + sizeof(ent->d_name) + 1);
-                    node->relative_path = malloc(sizeof(ent->d_name));
+                    node->name = malloc(sizeof(ent->d_name));
+                    node->impl = NULL;
 
                     strcpy(node->absolute_path, command_path);
                     strcat(node->absolute_path, "/");
                     strcat(node->absolute_path, ent->d_name);
-                    strcpy(node->relative_path, ent->d_name);
+                    strcpy(node->name, ent->d_name);
 
                     add_node(commands_list, node);
                 }
@@ -141,6 +140,34 @@ list_t *load_commands(char *path) {
         }
         dir_path = strtok(NULL, ":");
     }
+    return commands_list;
+}
+
+list_t *_load_custom_commands(list_t *commands_list){
+    int size=0, index=0;
+    command_nt *result = malloc(sizeof(command_nt));
+    command_nt **commands = malloc(sizeof(command_nt**));
+    commands = get_custom_commands(&size);
+
+    for(index=0; index<size; index++){
+        result = find(commands_list, commands[index]->name, comparator);
+        if(result != NULL) {
+            printf("uhhuuu");
+        }else{
+            add_node(commands_list, commands[index]);
+        }
+    }
+
+    return commands_list;
+}
+
+list_t *load_commands(char *path) {
+    list_t *commands_list = malloc(sizeof(list_t));
+    init_list(commands_list, COMMANDS_NR, sizeof(command_nt));
+
+    commands_list = _load_from_path(commands_list, path);
+    commands_list = _load_custom_commands(commands_list);
+
     return commands_list;
 }
 
