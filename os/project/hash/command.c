@@ -126,6 +126,8 @@ list_t *_load_from_path(list_t *commands_list, char *path){
                     node->absolute_path = malloc(sizeof(command_path) + sizeof(ent->d_name) + 1);
                     node->name = malloc(sizeof(ent->d_name));
                     node->impl = NULL;
+                    node->arguments = NULL;
+                    node->arguments_size = 0;
 
                     strcpy(node->absolute_path, command_path);
                     strcat(node->absolute_path, "/");
@@ -174,7 +176,7 @@ list_t *load_commands(char *path) {
 int execute(char *raw_command, list_t *loaded_commands) {
     pid_t pid;
     int commands_nr=0, status;
-    char ***parsed_commands=malloc(sizeof(char***));
+    command_nt **parsed_commands=malloc(sizeof(command_nt**));
 
     parsed_commands = parse_command(raw_command, &commands_nr, loaded_commands);
 
@@ -188,15 +190,15 @@ int execute(char *raw_command, list_t *loaded_commands) {
     return 1;
 }
 
-char ***parse_command(char *command, int *commands_nr, list_t* loaded_commands){
+command_nt **parse_command(char *command, int *commands_nr, list_t* loaded_commands){
     command_nt *result = malloc(sizeof(command_nt));
 
-    int index=0,i;
+    int index=0, i, nr=0;
     char *aux_command;
     char **prepared_command;
 
     char **aux_commands = malloc(sizeof(char***));
-    char ***commands = malloc(sizeof(char***));
+    command_nt **commands = malloc(sizeof(command_nt**));
 
     aux_command = strtok(command, "|");
     while(aux_command != NULL){
@@ -208,13 +210,17 @@ char ***parse_command(char *command, int *commands_nr, list_t* loaded_commands){
     }
 
     for(i=0; i<index; i++) {
-        prepared_command = get_arguments(aux_commands[i]);
+        nr = 0;
+        prepared_command = get_arguments(aux_commands[i], &nr);
 
         result = find(loaded_commands, prepared_command[0], comparator);
         if(result != NULL) {
-            commands[i] = malloc(sizeof(char***));
+            commands[i] = malloc(sizeof(command_nt*));
             prepared_command[0] = ((command_nt*)result)->absolute_path;
-            commands[i] = prepared_command;
+            commands[i] = ((command_nt*)result);
+            commands[i]->arguments = malloc(sizeof(prepared_command));
+            commands[i]->arguments = prepared_command;
+            commands[i]->arguments_size = nr;
         }else {
             //TODO: report error
         }
@@ -223,7 +229,7 @@ char ***parse_command(char *command, int *commands_nr, list_t* loaded_commands){
     return commands;
 }
 
-char **get_arguments(char *command) {
+char **get_arguments(char *command, int *size) {
     int index=0;
     char *argument;
     char **args = malloc(100 * sizeof(char*));
@@ -238,10 +244,11 @@ char **get_arguments(char *command) {
         argument = strtok(NULL, " ");
     }
     args[index] = NULL;
+    *size = index - 1;
     return args;
 }
 
-void run(char ***commands, int commands_nr, int in_fd) {
+void run(command_nt **commands, int commands_nr, int in_fd) {
     pid_t pid;
     int pipes[2], status;
 
@@ -253,7 +260,10 @@ void run(char ***commands, int commands_nr, int in_fd) {
             if(dup2(in_fd, STDIN_FILENO) != -1)
                close(in_fd);
         }
-        execv(commands[0][0], commands[0]);
+        if(commands[0]->impl == NULL)
+            execv(commands[0]->absolute_path, commands[0]->arguments);
+        else
+            commands[0]->impl(commands[0]->arguments_size, commands[0]->arguments);
     }else{
         if ((pipe(pipes) == -1) || ((pid = fork()) == -1)) {
             perror("error when we initialized pipes");
@@ -266,7 +276,10 @@ void run(char ***commands, int commands_nr, int in_fd) {
             else if ((close(pipes[1]) == -1))
                 perror("Failed to close extra pipe descriptors");
             else {
-                execv(commands[0][0], commands[0]);
+                if(commands[0]->impl == NULL)
+                    execv(commands[0]->absolute_path, commands[0]->arguments);
+                else
+                    commands[0]->impl(commands[0]->arguments_size, commands[0]->arguments);
             }
         }
         close(pipes[1]);   /* parent executes the rest of commands */

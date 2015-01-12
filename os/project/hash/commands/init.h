@@ -10,9 +10,12 @@ int list_size=0;
 command_nt *commands[MAX_CUSTOM_COMMANDS];
 
 void add_custom_command(char *name, implementation fn){
-    command_nt *command = malloc(sizeof(command_nt*));
+    command_nt *command = malloc(sizeof(command_nt));
 
     command->absolute_path = NULL;
+    command->arguments = NULL;
+    command->arguments_size = 0;
+
     command->name = malloc(sizeof(name));
     strcpy(command->name, name);
     command->impl = fn;

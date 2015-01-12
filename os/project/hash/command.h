@@ -20,17 +20,19 @@
 typedef void (*implementation)(int argc, char** argv);
 
 typedef struct command_node {
-    char *name;                        // name of the command
+    char *name;          // name of the command
 
-    char *absolute_path;               // absolute path to executable, used for execv
+    char *absolute_path; // absolute path to executable, used for execv
     implementation impl; // if it's a custom command, we have our own implementation
+    char **arguments;    // arguments of this commands
+    int arguments_size;
 } command_nt;
 
 char* get_command(list_t *history);
 list_t *load_commands(char *path);
 int execute(char *command, list_t *commands);
-char ***parse_command(char *command, int *commands_nr, list_t *loaded_commands);
-char **get_arguments(char *command);
-void run(char ***commands, int commands_nr, int in_fd);
+command_nt **parse_command(char *command, int *commands_nr, list_t *loaded_commands);
+char **get_arguments(char *command, int *nr);
+void run(command_nt **commands, int commands_nr, int in_fd);
 
 #endif
