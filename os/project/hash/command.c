@@ -177,10 +177,21 @@ list_t *load_commands(char *path) {
 
 int execute(char *raw_command, list_t *loaded_commands, char **environ) {
     pid_t pid;
-    int commands_nr=0, status, shmid, index;
+    int commands_nr=0, status, shmid, index, in=0, std_in=STDIN_FILENO, out=0, std_out=STDOUT_FILENO, redirect_fd;
     command_nt **parsed_commands=malloc(sizeof(command_nt**));
-    char *env="/tmp/env";
+    char *env="/tmp/env", *std_path;
     char **child_environ, **env_cpy=malloc(sizeof(char**));
+
+    in = strstr(raw_command, "<") != NULL ? 1:0;
+    out = strstr(raw_command, ">") != NULL ? 1:0;
+    if(in || out) {
+        raw_command = strtok(raw_command, "><");
+        std_path = strtok(NULL, "><");
+        redirect_fd = open(std_path, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
+
+        std_in = in ? redirect_fd : STDIN_FILENO;
+        std_out = out ? redirect_fd : STDOUT_FILENO;
+    }
 
     parsed_commands = parse_command(raw_command, &commands_nr, loaded_commands);
     shmid = shmget(IPC_PRIVATE, sizeof(env_cpy), 0660 | IPC_CREAT);
@@ -196,7 +207,7 @@ int execute(char *raw_command, list_t *loaded_commands, char **environ) {
     pid = fork();
     if(pid == 0){
         char **child_environ = (char **)shmat(shmid,NULL,0);
-        run(parsed_commands, commands_nr, STDIN_FILENO, child_environ);
+        run(parsed_commands, commands_nr, std_in, std_out, child_environ);
         exit(1);
     }else{
         while((pid = wait(&status)) > 0);
@@ -268,7 +279,7 @@ char **get_arguments(char *command, int *size) {
     return args;
 }
 
-void run(command_nt **commands, int commands_nr, int in_fd, char **environ) {
+void run(command_nt **commands, int commands_nr, int in_fd, int out_fd, char **environ) {
     pid_t pid;
     int pipes[2], status;
 
@@ -276,6 +287,10 @@ void run(command_nt **commands, int commands_nr, int in_fd, char **environ) {
         if(in_fd != STDIN_FILENO){
             if(dup2(in_fd, STDIN_FILENO) != -1)
                close(in_fd);
+        }
+        if(out_fd != STDOUT_FILENO){
+            if(dup2(out_fd, STDOUT_FILENO) != -1)
+               close(out_fd);
         }
         if(commands[0]->impl == NULL)
             execv(commands[0]->absolute_path, commands[0]->arguments);
@@ -302,6 +317,6 @@ void run(command_nt **commands, int commands_nr, int in_fd, char **environ) {
         }
         close(pipes[1]);   /* parent executes the rest of commands */
         close(in_fd);
-        run(commands + 1, commands_nr - 1, pipes[0], environ);
+        run(commands + 1, commands_nr - 1, pipes[0], out_fd, environ);
     }
 }

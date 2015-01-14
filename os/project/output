@@ -1,0 +1,12 @@
+-rw-rw-r-- 1 wok wok     528 ian 13 22:04 ash.c
+-rwxrwx--- 1 wok wok     528 ian 15 01:48  b.c
+-rwxrwxr-x 1 wok wok    8620 ian 15 00:10 ch
+-rw-rw-r-- 1 wok wok     196 ian 15 00:09 ch.c
+-rw------- 1 wok wok 2629632 ian 11 15:22 core
+-rw-rw-r-- 1 wok wok      59 ian 12 11:25 hm.c
+-rwxrwxr-x 1 wok wok   13757 ian 14 18:09 ipc
+-rw-rw-r-- 1 wok wok    4598 ian 14 18:09 ipc.c
+-rw-rw-r-- 1 wok wok    2650 ian 11 14:53 pipes.c
+-rw-rw-r-- 1 wok wok     334 dec 30 17:59 README.md
+-rw-rw-r-- 1 wok wok     828 ian 14 19:21 shared.c
+-rw-rw-r-- 1 wok wok    1191 ian  9 17:05 test.c

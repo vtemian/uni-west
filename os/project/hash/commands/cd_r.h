@@ -13,7 +13,6 @@
 void str_cpy(char *dest, char src[9000]) {
     char a='a';
     int size=strlen(src), index=0;
-    printf("%d\n", &dest[0]);
     for(index=0; index<size; index++){
         dest[index] = 'a';
     }

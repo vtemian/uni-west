@@ -33,6 +33,6 @@ list_t *load_commands(char *path);
 int execute(char *command, list_t *commands, char **environ);
 command_nt **parse_command(char *command, int *commands_nr, list_t *loaded_commands);
 char **get_arguments(char *command, int *nr);
-void run(command_nt **commands, int commands_nr, int in_fd, char **environ);
+void run(command_nt **commands, int commands_nr, int in_fd, int out_fd, char **environ);
 
 #endif
