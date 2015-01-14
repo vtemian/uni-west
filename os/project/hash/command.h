@@ -17,7 +17,7 @@
 
 #include "linked_list.h"
 
-typedef void (*implementation)(int argc, char** argv);
+typedef void (*implementation)(int argc, char **argv, char **environ);
 
 typedef struct command_node {
     char *name;          // name of the command
@@ -30,9 +30,9 @@ typedef struct command_node {
 
 char* get_command(list_t *history);
 list_t *load_commands(char *path);
-int execute(char *command, list_t *commands);
+int execute(char *command, list_t *commands, char **environ);
 command_nt **parse_command(char *command, int *commands_nr, list_t *loaded_commands);
 char **get_arguments(char *command, int *nr);
-void run(command_nt **commands, int commands_nr, int in_fd);
+void run(command_nt **commands, int commands_nr, int in_fd, char **environ);
 
 #endif

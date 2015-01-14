@@ -28,7 +28,8 @@ list_t* load_history(){
     history_fd = open(history_file, O_CREAT | O_RDWR, S_IRWXU | S_IRWXG);
     if(history_fd == -1)
         file_error(history_file);
-do{
+
+    do{
         read_nr = read(history_fd, &line, sizeof line);
         if(!read_nr)
             break;

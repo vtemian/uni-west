@@ -4,6 +4,8 @@
 
 #include "libhash.h"
 
+extern char **environ;
+
 int main() {
     char *path=getenv("PATH"), *raw_command;
 
@@ -18,7 +20,7 @@ int main() {
         raw_command = get_command(history);
         if(strlen(raw_command) == 0) continue;
 
-        execute(raw_command, commands);
+        execute(raw_command, commands, environ);
     }
 
     return 0;

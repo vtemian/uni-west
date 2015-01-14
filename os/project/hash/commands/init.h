@@ -5,6 +5,8 @@
 
 #include "../command.h"
 #include "version_r.h"
+#include "zen_r.h"
+#include "cd_r.h"
 
 int list_size=0;
 command_nt *commands[MAX_CUSTOM_COMMANDS];
@@ -26,6 +28,8 @@ void add_custom_command(char *name, implementation fn){
 
 command_nt **get_custom_commands(int *size){
     add_custom_command("version", &version_r);
+    add_custom_command("zen", &zen_r);
+    add_custom_command("cd", &cd_r);
 
     *size = list_size;
     return commands;

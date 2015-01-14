@@ -1,4 +1,6 @@
 #include "sys/wait.h"
+#include <sys/ipc.h>
+#include <sys/shm.h>
 
 #include "command.h"
 #include "terminal.h"
@@ -173,18 +175,36 @@ list_t *load_commands(char *path) {
     return commands_list;
 }
 
-int execute(char *raw_command, list_t *loaded_commands) {
+int execute(char *raw_command, list_t *loaded_commands, char **environ) {
     pid_t pid;
-    int commands_nr=0, status;
+    int commands_nr=0, status, shmid, index;
     command_nt **parsed_commands=malloc(sizeof(command_nt**));
+    char *env="/tmp/env";
+    char **child_environ, **env_cpy=malloc(sizeof(char**));
 
     parsed_commands = parse_command(raw_command, &commands_nr, loaded_commands);
+    shmid = shmget(IPC_PRIVATE, sizeof(env_cpy), 0660 | IPC_CREAT);
+
+    char **parent_environ = (char **)shmat(shmid,NULL,0);
+
+    index=0;
+    while(environ[index]) {
+        memcpy(&parent_environ[index], &environ[index], sizeof(environ[index]));
+        index++;
+    }
 
     pid = fork();
     if(pid == 0){
-        run(parsed_commands, commands_nr, STDIN_FILENO);
+        char **child_environ = (char **)shmat(shmid,NULL,0);
+        run(parsed_commands, commands_nr, STDIN_FILENO, child_environ);
+        exit(1);
     }else{
         while((pid = wait(&status)) > 0);
+        char **parent_environ = (char **)shmat(shmid,NULL,0);
+        status=0;
+        while(parent_environ[status]){
+            putenv(parent_environ[status++]);
+        }
     }
 
     return 1;
@@ -248,13 +268,10 @@ char **get_arguments(char *command, int *size) {
     return args;
 }
 
-void run(command_nt **commands, int commands_nr, int in_fd) {
+void run(command_nt **commands, int commands_nr, int in_fd, char **environ) {
     pid_t pid;
     int pipes[2], status;
 
-    if(commands_nr == 0){
-        exit(1);
-    }
     if(commands_nr == 1){
         if(in_fd != STDIN_FILENO){
             if(dup2(in_fd, STDIN_FILENO) != -1)
@@ -262,8 +279,9 @@ void run(command_nt **commands, int commands_nr, int in_fd) {
         }
         if(commands[0]->impl == NULL)
             execv(commands[0]->absolute_path, commands[0]->arguments);
-        else
-            commands[0]->impl(commands[0]->arguments_size, commands[0]->arguments);
+        else{
+            commands[0]->impl(commands[0]->arguments_size, commands[0]->arguments, environ);
+        }
     }else{
         if ((pipe(pipes) == -1) || ((pid = fork()) == -1)) {
             perror("error when we initialized pipes");
@@ -279,11 +297,11 @@ void run(command_nt **commands, int commands_nr, int in_fd) {
                 if(commands[0]->impl == NULL)
                     execv(commands[0]->absolute_path, commands[0]->arguments);
                 else
-                    commands[0]->impl(commands[0]->arguments_size, commands[0]->arguments);
+                    commands[0]->impl(commands[0]->arguments_size, commands[0]->arguments, environ);
             }
         }
         close(pipes[1]);   /* parent executes the rest of commands */
         close(in_fd);
-        run(commands + 1, commands_nr - 1, pipes[0]);
+        run(commands + 1, commands_nr - 1, pipes[0], environ);
     }
 }
