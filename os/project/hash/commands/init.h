@@ -8,6 +8,7 @@
 #include "zen_r.h"
 #include "cd_r.h"
 #include "nl_r.h"
+#include "uniq_r.h"
 
 int list_size=0;
 command_nt *commands[MAX_CUSTOM_COMMANDS];
@@ -32,6 +33,7 @@ command_nt **get_custom_commands(int *size){
     add_custom_command("zen", &zen_r);
     add_custom_command("cd", &cd_r);
     add_custom_command("nl", &nl_r);
+    add_custom_command("uniq", &uniq_r);
 
     *size = list_size;
     return commands;
