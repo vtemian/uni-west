@@ -6,7 +6,7 @@ public class CharField implements IField{
     private String sqlString;
     private Integer maxSize;
 
-    public CharField(String name, Integer maxSize) {
+    public CharField(Integer maxSize) {
         this.maxSize = maxSize;
     }
 

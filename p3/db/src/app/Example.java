@@ -1,19 +1,17 @@
 package app;
 
-import app.entities.Line;
+import app.models.Line;
 import orm.components.ORM;
 import orm.connection.JDBCConnection;
-import orm.entity.IEntity;
 
-import java.util.ArrayList;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 
 public class Example {
     public static void main(String[] args){
         JDBCConnection connection = new JDBCConnection("seleus00", "root", "jdbc:mysql://localhost/test_orm");
-        ArrayList<IEntity> entities = new ArrayList<IEntity>();
-        ORM orm = new ORM(connection);
-
-        entities.add(new Line());
-        orm.sync(entities);
+        ORM orm = new ORM("app.models", connection);
+        orm.sync();
     }
 }
