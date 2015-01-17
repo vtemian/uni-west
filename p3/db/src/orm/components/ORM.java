@@ -50,20 +50,28 @@ public class ORM implements IORM{
         Map<String, ArrayList<String>> sqlFieldsStatements = new HashMap<String, ArrayList<String>>();
 
         for(Class<?> clazz: getClassesInPackage(modelsPackage)){
+            Object instance = null;
+            try {
+                instance = clazz.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+            ArrayList<String> sqlStatements = new ArrayList<String>();
             for(Field field : clazz.getDeclaredFields()) {
                 try {
-                    ArrayList<String> sqlStatements = new ArrayList<String>();
                     Class x = Class.forName(field.getType().getName());
 
                     for(Class inter: x.getInterfaces()){
                         if(inter.getName().equals("orm.fields.interfaces.IField")){
                             Method method = x.getDeclaredMethod("getSQLStatement");
-                            String sqlStatement = (String) method.invoke(field.get(clazz));
+                            String sqlStatement = (String) method.invoke(field.get(instance));
                             sqlStatements.add(field.getName() + " " + sqlStatement);
                             break;
                         }
                     }
-                    sqlFieldsStatements.put(field.getName(), sqlStatements);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 } catch (NoSuchMethodException e) {
@@ -74,6 +82,7 @@ public class ORM implements IORM{
                     e.printStackTrace();
                 }
             }
+            sqlFieldsStatements.put(clazz.getSimpleName(), sqlStatements);
         }
         return sqlFieldsStatements;
     }
