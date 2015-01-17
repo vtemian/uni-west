@@ -13,4 +13,5 @@ public interface IORM {
     public void delete(IEntity entity);
 
     public void setConnection(IConnection dbConnection);
+    public List<String> getFieldsSQLStatemens(IEntity entity);
 }

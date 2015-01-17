@@ -4,17 +4,10 @@ import orm.fields.interfaces.IField;
 
 public class CharField implements IField{
     private String sqlString;
-    private String name;
     private Integer maxSize;
-
-    @Override
-    public String getName() {
-        return null;
-    }
 
     public CharField(String name, Integer maxSize) {
         this.maxSize = maxSize;
-        this.name = name;
     }
 
     public void setMaxSize(Integer maxSize) {
@@ -27,6 +20,6 @@ public class CharField implements IField{
 
     @Override
     public String getSQLStatement() {
-        return name + " varchar(" + maxSize.toString() + ") ";
+        return  " varchar(" + maxSize.toString() + ") ";
     }
 }
