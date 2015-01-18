@@ -10,7 +10,14 @@ public class Example {
         ORM orm = new ORM("app.models", connection);
         Line line = new Line();
 
+        line.name.setValue("altcineva");
+
         // sync db with models
-        orm.sync();
+        try {
+            line = (Line) orm.retrieve(10, Line.class);
+            System.out.println(line.name.getValue());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

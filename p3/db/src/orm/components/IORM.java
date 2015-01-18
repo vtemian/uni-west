@@ -1,5 +1,6 @@
 package orm.components;
 
+import app.models.Line;
 import orm.connection.IConnection;
 import orm.entity.IEntity;
 
@@ -9,7 +10,7 @@ import java.util.Map;
 
 public interface IORM {
     public void sync();
-    public void retrieve(Integer entityID, String entityClass);
+    public Object retrieve(Integer entityID, Class<?> entity) throws IllegalAccessException, InstantiationException;
 
     public void create(IEntity entity);
     public void update(IEntity entity);

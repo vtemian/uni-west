@@ -1,11 +1,14 @@
 package orm.connection;
 
 import java.sql.*;
+import java.util.HashMap;
 
 public class JDBCConnection implements IConnection{
     private String dbPass;
     private String dbUser;
     private String connectionString;
+    private Connection conn = null;
+    private Statement stmt = null;
 
     static final String jdbcDriver = "com.mysql.jdbc.Driver";
 
@@ -13,6 +16,19 @@ public class JDBCConnection implements IConnection{
         this.dbPass = dbPass;
         this.dbUser = dbUser;
         this.connectionString = connectionString;
+
+        try {
+            //Register JDBC driver
+            Class.forName(jdbcDriver);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            conn = DriverManager.getConnection(connectionString, dbUser, dbPass);
+            stmt = conn.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -21,50 +37,29 @@ public class JDBCConnection implements IConnection{
     }
 
     @Override
+    public ResultSet select(String sqlStatement) {
+        return executeSQL(sqlStatement, "SELECT");
+    }
+
+    @Override
     public ResultSet executeSQL(String sqlStatement, String type) {
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet result = null;
+        ResultSet rs = null;
 
         try{
-            //Register JDBC driver
-            Class.forName(jdbcDriver);
-
-            //Open a connection
-            conn = DriverManager.getConnection(connectionString, dbUser, dbPass);
-
-            //Create a statement
-            stmt = conn.createStatement();
             if(type.equals("SELECT"))
-                result = stmt.executeQuery(sqlStatement);
+                rs = stmt.executeQuery(sqlStatement);
             if(type.equals("UPDATE"))
                 stmt.executeUpdate(sqlStatement);
-
-            //Cleanup
-            stmt.close();
-            conn.close();
+            return rs;
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
         }catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
-        }finally{
-            //finally block used to close resources
-            try{
-                if(stmt!=null)
-                    stmt.close();
-            }catch(SQLException se2){
-            }// nothing we can do
-            try{
-                if(conn!=null)
-                    conn.close();
-            }catch(SQLException se){
-                se.printStackTrace();
-            }//end finally try
         }//end try
 
-        return result;
+        return null;
     }
 
     public void setDbUser(String dbUser) {

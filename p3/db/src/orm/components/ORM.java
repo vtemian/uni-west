@@ -1,12 +1,14 @@
 package orm.components;
 
+import app.models.Line;
 import orm.connection.IConnection;
 import orm.entity.IEntity;
-import orm.fields.interfaces.IField;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -42,8 +44,7 @@ public class ORM implements IORM{
             createTable += ");";
         }
 
-        System.out.println(createTable);
-        //dbConnection.createTable(createTable);
+        dbConnection.createTable(createTable);
     }
 
     public Map<String, ArrayList<String>> getFieldsSQLStatements(){
@@ -68,7 +69,11 @@ public class ORM implements IORM{
                         if(inter.getName().equals("orm.fields.interfaces.IField")){
                             Method method = x.getDeclaredMethod("getSQLStatement");
                             String sqlStatement = (String) method.invoke(field.get(instance));
-                            sqlStatements.add(field.getName() + " " + sqlStatement);
+                            if(sqlStatement.contains("PRIMARY KEY")){
+                                sqlStatements.add(field.getName() + " " + sqlStatement + field.getName()+ ")");
+                            }else{
+                                sqlStatements.add(field.getName() + " " + sqlStatement);
+                            }
                             break;
                         }
                     }
@@ -120,13 +125,100 @@ public class ORM implements IORM{
     }
 
     @Override
-    public void retrieve(Integer entityID, String entityClass) {
+    public Object retrieve(Integer entityID, Class<?> entity){
+        String sqlStatement = "SELECT * FROM " + entity.getSimpleName() + " WHERE ID=" + entityID.toString() + ";";
+        ResultSet result = dbConnection.select(sqlStatement);
+        Object new_entity = null;
 
+        try {
+            new_entity = entity.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        if(result == null){
+            return null;
+        }
+
+        try {
+            if(!result.next()) {
+                return null;
+            }
+
+            for(Field field : new_entity.getClass().getDeclaredFields()) {
+                try {
+                    Class<?> x = Class.forName(field.getType().getName());
+
+                    for (Class inter : x.getInterfaces()) {
+                        if (inter.getName().equals("orm.fields.interfaces.IField")) {
+                            Object o = result.getObject(field.getName());
+
+                            for (Method method : x.getDeclaredMethods()) {
+                                if(method.getName().contains("setValue")){
+                                    method.invoke(field.get(new_entity), o);
+                                }
+                            }
+                        }
+                    }
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new_entity;
     }
 
     @Override
     public void create(IEntity entity) {
+        int counter;
+        Class<?> clazz = entity.getClass();
+        ArrayList<String> values = new ArrayList<String>();
+        String statement = "INSERT INTO " + clazz.getSimpleName() + " VALUES ( ";
 
+        for(Field field : clazz.getDeclaredFields()) {
+            try {
+                Class x = Class.forName(field.getType().getName());
+
+                for(Class inter: x.getInterfaces()){
+                    if(inter.getName().equals("orm.fields.interfaces.IField")){
+                        Method method = x.getDeclaredMethod("getValue");
+                        String value = method.invoke(field.get(entity)).toString();
+                        values.add(value);
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        counter = 0;
+        for(String value: values) {
+            if(counter > 0)
+                statement += ",";
+
+            statement += value;
+            counter++;
+        }
+        statement += ");";
+        System.out.println(statement);
+        dbConnection.executeSQL(statement, "UPDATE");
     }
 
     @Override
