@@ -2,6 +2,9 @@ package orm.fields.components;
 
 import orm.fields.interfaces.IField;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class CharField implements IField{
     private String sqlString;
     private String value;
@@ -25,6 +28,14 @@ public class CharField implements IField{
     }
     public Integer getMaxSize() {
         return maxSize;
+    }
+
+    public void setValue(ResultSet resultSet, String fieldName) {
+        try {
+            value = resultSet.getString(fieldName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

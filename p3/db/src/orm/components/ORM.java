@@ -153,18 +153,17 @@ public class ORM implements IORM{
 
                     for (Class inter : x.getInterfaces()) {
                         if (inter.getName().equals("orm.fields.interfaces.IField")) {
-                            Object o = result.getObject(field.getName());
-
                             for (Method method : x.getDeclaredMethods()) {
+                                System.out.println(method.getParameterTypes().length );
+                                System.out.println(field.getName());
                                 if(method.getName().contains("setValue")){
-                                    method.invoke(field.get(new_entity), o);
+                                    if(method.getParameterTypes().length != 2) continue;
+                                    method.invoke(field.get(new_entity), result, field.getName());
                                 }
                             }
                         }
                     }
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                } catch (SQLException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
@@ -223,7 +222,47 @@ public class ORM implements IORM{
 
     @Override
     public void update(IEntity entity) {
+        int counter=0;
+        Integer ID = new Integer(0);
+        Class<?> clazz = entity.getClass();
+        ArrayList<String> values = new ArrayList<String>();
+        String statement = "UPDATE " + clazz.getSimpleName() + " SET ";
 
+        for(Field field : clazz.getDeclaredFields()) {
+            try {
+                Class x = Class.forName(field.getType().getName());
+
+                for(Class inter: x.getInterfaces()){
+                    if(inter.getName().equals("orm.fields.interfaces.IField")){
+                        Method method = x.getDeclaredMethod("getValue");
+                        String value = method.invoke(field.get(entity)).toString();
+
+                        if(field.getName().equals("ID")){
+                            ID = Integer.parseInt(value);
+                        }else {
+                            if (counter > 0)
+                                statement += ",";
+                            statement += field.getName() + "=" + value;
+                            counter++;
+                        }
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(counter > 0)
+            statement += " WHERE ID=" + ID.toString();
+
+        dbConnection.executeSQL(statement, "UPDATE");
     }
 
     @Override

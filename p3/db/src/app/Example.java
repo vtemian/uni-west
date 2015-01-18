@@ -15,7 +15,9 @@ public class Example {
         // sync db with models
         try {
             line = (Line) orm.retrieve(10, Line.class);
-            System.out.println(line.name.getValue());
+            System.out.println(line.ID.getValue());
+            line.name.setValue("acum e updated");
+            orm.update(line);
         } catch (Exception e) {
             e.printStackTrace();
         }
