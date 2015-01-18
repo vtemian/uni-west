@@ -71,7 +71,6 @@ public class JDBCConnection implements IConnection{
     }
 
     public String getDbPass() {
-
         return dbPass;
     }
 
