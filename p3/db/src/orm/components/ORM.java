@@ -1,6 +1,5 @@
 package orm.components;
 
-import app.models.Line;
 import orm.connection.IConnection;
 import orm.entity.IEntity;
 
@@ -154,8 +153,6 @@ public class ORM implements IORM{
                     for (Class inter : x.getInterfaces()) {
                         if (inter.getName().equals("orm.fields.interfaces.IField")) {
                             for (Method method : x.getDeclaredMethods()) {
-                                System.out.println(method.getParameterTypes().length );
-                                System.out.println(field.getName());
                                 if(method.getName().contains("setValue")){
                                     if(method.getParameterTypes().length != 2) continue;
                                     method.invoke(field.get(new_entity), result, field.getName());
@@ -177,27 +174,39 @@ public class ORM implements IORM{
         return new_entity;
     }
 
-    @Override
-    public void create(IEntity entity) {
-        int counter;
+    private Map<Field, Class<?>> getEntitiesFields(IEntity entity){
+        Map<Field, Class<?>> fields = new HashMap<Field, Class<?>>();
         Class<?> clazz = entity.getClass();
-        ArrayList<String> values = new ArrayList<String>();
-        String statement = "INSERT INTO " + clazz.getSimpleName() + " VALUES ( ";
 
         for(Field field : clazz.getDeclaredFields()) {
             try {
                 Class x = Class.forName(field.getType().getName());
 
-                for(Class inter: x.getInterfaces()){
-                    if(inter.getName().equals("orm.fields.interfaces.IField")){
-                        Method method = x.getDeclaredMethod("getValue");
-                        String value = method.invoke(field.get(entity)).toString();
-                        values.add(value);
+                for (Class inter : x.getInterfaces()) {
+                    if (inter.getName().equals("orm.fields.interfaces.IField")) {
+                        fields.put(field, x);
                         break;
                     }
                 }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            }
+        }
+
+        return fields;
+    }
+
+    @Override
+    public void create(IEntity entity) {
+        int counter;
+        ArrayList<String> values = new ArrayList<String>();
+        String statement = "INSERT INTO " + entity.getClass().getSimpleName() + " VALUES ( ";
+
+        for(Entry<Field, Class<?>> entry: getEntitiesFields(entity).entrySet()){
+            try{
+                Method method = entry.getValue().getDeclaredMethod("getValue");
+                String value = method.invoke(entry.getKey().get(entity)).toString();
+                values.add(value);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
@@ -215,8 +224,8 @@ public class ORM implements IORM{
             statement += value;
             counter++;
         }
+
         statement += ");";
-        System.out.println(statement);
         dbConnection.executeSQL(statement, "UPDATE");
     }
 
@@ -224,32 +233,20 @@ public class ORM implements IORM{
     public void update(IEntity entity) {
         int counter=0;
         Integer ID = new Integer(0);
-        Class<?> clazz = entity.getClass();
-        ArrayList<String> values = new ArrayList<String>();
-        String statement = "UPDATE " + clazz.getSimpleName() + " SET ";
+        String statement = "UPDATE " + entity.getClass().getSimpleName() + " SET ";
 
-        for(Field field : clazz.getDeclaredFields()) {
+        for(Entry<Field, Class<?>> entry: getEntitiesFields(entity).entrySet()){
             try {
-                Class x = Class.forName(field.getType().getName());
-
-                for(Class inter: x.getInterfaces()){
-                    if(inter.getName().equals("orm.fields.interfaces.IField")){
-                        Method method = x.getDeclaredMethod("getValue");
-                        String value = method.invoke(field.get(entity)).toString();
-
-                        if(field.getName().equals("ID")){
-                            ID = Integer.parseInt(value);
-                        }else {
-                            if (counter > 0)
-                                statement += ",";
-                            statement += field.getName() + "=" + value;
-                            counter++;
-                        }
-                        break;
-                    }
+                Method method = entry.getValue().getDeclaredMethod("getValue");
+                String value = method.invoke(entry.getKey().get(entity)).toString();
+                if(entry.getKey().getName().equals("ID")){
+                    ID = Integer.parseInt(value);
+                }else {
+                    if (counter > 0)
+                        statement += ",";
+                    statement += entry.getKey().getName() + "=" + value;
+                    counter++;
                 }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
@@ -267,29 +264,17 @@ public class ORM implements IORM{
 
     @Override
     public void delete(IEntity entity) {
-        int counter=0;
         Integer ID = new Integer(0);
-        Class<?> clazz = entity.getClass();
-        ArrayList<String> values = new ArrayList<String>();
-        String statement = "DELETE FROM " + clazz.getSimpleName() + " WHERE ";
+        String statement = "DELETE FROM " + entity.getClass().getSimpleName() + " WHERE ";
 
-        for(Field field : clazz.getDeclaredFields()) {
-            try {
-                Class x = Class.forName(field.getType().getName());
+        for(Entry<Field, Class<?>> entry: getEntitiesFields(entity).entrySet()){
+            try{
+                Method method = entry.getValue().getDeclaredMethod("getValue");
+                String value = method.invoke(entry.getKey().get(entity)).toString();
 
-                for(Class inter: x.getInterfaces()){
-                    if(inter.getName().equals("orm.fields.interfaces.IField")){
-                        Method method = x.getDeclaredMethod("getValue");
-                        String value = method.invoke(field.get(entity)).toString();
-
-                        if(field.getName().equals("ID")){
-                            ID = Integer.parseInt(value);
-                        }
-                        break;
-                    }
+                if(entry.getValue().getName().equals("ID")){
+                    ID = Integer.parseInt(value);
                 }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
