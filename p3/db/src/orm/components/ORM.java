@@ -267,7 +267,40 @@ public class ORM implements IORM{
 
     @Override
     public void delete(IEntity entity) {
+        int counter=0;
+        Integer ID = new Integer(0);
+        Class<?> clazz = entity.getClass();
+        ArrayList<String> values = new ArrayList<String>();
+        String statement = "DELETE FROM " + clazz.getSimpleName() + " WHERE ";
 
+        for(Field field : clazz.getDeclaredFields()) {
+            try {
+                Class x = Class.forName(field.getType().getName());
+
+                for(Class inter: x.getInterfaces()){
+                    if(inter.getName().equals("orm.fields.interfaces.IField")){
+                        Method method = x.getDeclaredMethod("getValue");
+                        String value = method.invoke(field.get(entity)).toString();
+
+                        if(field.getName().equals("ID")){
+                            ID = Integer.parseInt(value);
+                        }
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        statement += " ID=" + ID.toString();
+        dbConnection.executeSQL(statement, "UPDATE");
     }
 
     @Override

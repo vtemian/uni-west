@@ -14,10 +14,11 @@ public class Example {
 
         // sync db with models
         try {
-            line = (Line) orm.retrieve(10, Line.class);
+            line = (Line) orm.retrieve(11, Line.class);
             System.out.println(line.ID.getValue());
             line.name.setValue("acum e updated");
             orm.update(line);
+            orm.delete(line);
         } catch (Exception e) {
             e.printStackTrace();
         }
