@@ -24,6 +24,8 @@ public class ORM implements IORM{
     public ORM(String modelsPackage, IConnection dbConnection) {
         this.modelsPackage = modelsPackage;
         this.dbConnection = dbConnection;
+
+        this.dbConnection.connect();
     }
 
     /**
@@ -213,7 +215,7 @@ public class ORM implements IORM{
     /**
      *  Helper method that given a certain entity it will return all it's fields.
      *  It uses the Reflection API.
-     * @param entity
+     * @param entity: an Entity object for which to get its fields
      * @return Map: Field -> Class
      */
     private Map<Field, Class<?>> getEntitiesFields(IEntity entity){
@@ -241,8 +243,8 @@ public class ORM implements IORM{
     }
 
     /**
-     * Given a certain entity, it builds the query used to insert that entity in the corect table
-     * @param entity
+     * Given a certain entity, it builds the query used to insert that entity in the correct table
+     * @param entity: an Entity object which will be saved in db
      */
     @Override
     public void create(IEntity entity) {
@@ -283,7 +285,7 @@ public class ORM implements IORM{
 
     /**
      *  Given a certain entity, it will update its content in db
-     * @param entity
+     * @param entity: an Entity object which will be updated in db
      */
     @Override
     public void update(IEntity entity) {
@@ -326,7 +328,7 @@ public class ORM implements IORM{
 
     /**
      *  Delete the content of a given entity from db
-     * @param entity
+     * @param entity: an Entity object which will be deleted form db
      */
     @Override
     public void delete(IEntity entity) {

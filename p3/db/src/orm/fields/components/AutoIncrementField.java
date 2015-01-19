@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AutoIncrementField implements IField{
-    private String sqlString;
     private Integer value = 0;
 
     @Override

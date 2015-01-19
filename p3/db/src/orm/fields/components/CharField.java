@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CharField implements IField{
-    private String sqlString;
     private String value;
     private Integer maxSize;
 
@@ -30,6 +29,11 @@ public class CharField implements IField{
         return maxSize;
     }
 
+    /**
+     * Set a specific value from an ResultSet object, as a result of a select query
+     * @param resultSet: a row from a given query
+     * @param fieldName: specific column name from a table
+     */
     public void setValue(ResultSet resultSet, String fieldName) {
         try {
             value = resultSet.getString(fieldName);

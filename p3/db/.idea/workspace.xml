@@ -41,8 +41,8 @@
       <file leaf-file-name="Example.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/Example.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="540">
-              <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+              <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -50,101 +50,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Line.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/models/Line.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="324">
-              <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CharField.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CharField.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/orm/fields/components/CharField.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="936">
-              <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.19774011" vertical-offset="488" max-vertical-offset="900">
+              <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#430#431#0" expanded="true" />
-                <element signature="e#464#465#0" expanded="true" />
-                <element signature="e#495#496#0" expanded="true" />
-                <element signature="e#535#536#0" expanded="true" />
-                <element signature="e#953#954#0" expanded="true" />
-                <element signature="e#989#990#0" expanded="true" />
-                <element signature="e#1042#1043#0" expanded="true" />
-                <element signature="e#1105#1106#0" expanded="true" />
+                <element signature="e#400#401#0" expanded="true" />
+                <element signature="e#434#435#0" expanded="true" />
+                <element signature="e#465#466#0" expanded="true" />
+                <element signature="e#505#506#0" expanded="true" />
+                <element signature="e#552#553#0" expanded="true" />
+                <element signature="e#590#591#0" expanded="true" />
+                <element signature="e#624#625#0" expanded="true" />
+                <element signature="e#654#655#0" expanded="true" />
+                <element signature="docComment;method#setValue#1;class#CharField#0" expanded="false" />
+                <element signature="method#setValue#1;class#CharField#0" expanded="false" />
+                <element signature="e#1132#1133#0" expanded="true" />
+                <element signature="e#1168#1169#0" expanded="true" />
+                <element signature="e#1221#1222#0" expanded="true" />
+                <element signature="e#1284#1285#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AutoIncrementField.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/orm/fields/components/AutoIncrementField.java">
+      <file leaf-file-name="IConnection.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/orm/connection/IConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="594">
-              <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#678#679#0" expanded="true" />
-                <element signature="e#732#733#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ORM.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/orm/components/ORM.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1332">
-              <caret line="360" column="12" selection-start-line="360" selection-start-column="12" selection-end-line="360" selection-end-column="12" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#ORM#1;class#ORM#0" expanded="false" />
-                <element signature="method#sync#0;class#ORM#0" expanded="false" />
-                <element signature="method#getFieldsSQLStatements#0;class#ORM#0" expanded="false" />
-                <element signature="e#1849#1876#0" expanded="true" />
-                <element signature="e#2412#2420#0" expanded="true" />
-                <element signature="method#getClassesInPackage#0;class#ORM#0" expanded="false" />
-                <element signature="e#4588#4595#0" expanded="true" />
-                <element signature="docComment;method#retrieve#0;class#ORM#0" expanded="false" />
-                <element signature="method#retrieve#0;class#ORM#0" expanded="false" />
-                <element signature="docComment;method#getEntitiesFields#0;class#ORM#0" expanded="false" />
-                <element signature="method#getEntitiesFields#0;class#ORM#0" expanded="false" />
-                <element signature="e#8561#8578#0" expanded="true" />
-                <element signature="docComment;method#create#0;class#ORM#0" expanded="false" />
-                <element signature="method#create#0;class#ORM#0" expanded="false" />
-                <element signature="e#9597#9605#0" expanded="true" />
-                <element signature="docComment;method#update#0;class#ORM#0" expanded="false" />
-                <element signature="method#update#0;class#ORM#0" expanded="false" />
-                <element signature="docComment;method#delete#0;class#ORM#0" expanded="false" />
-                <element signature="method#delete#0;class#ORM#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/orm/entity/IEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+              <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Entity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/orm/entity/Entity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
-              <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -153,22 +90,92 @@
         <entry file="file://$PROJECT_DIR$/src/orm/fields/interfaces/IField.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
-              <caret line="7" column="61" selection-start-line="7" selection-start-column="61" selection-end-line="7" selection-end-column="61" />
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JDBCConnection.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/orm/connection/JDBCConnection.java">
+      <file leaf-file-name="AutoIncrementField.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/orm/fields/components/AutoIncrementField.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35371178" vertical-offset="1044" max-vertical-offset="1512">
-              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="576">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1122#1123#0" expanded="true" />
-                <element signature="e#1179#1180#0" expanded="true" />
-                <element signature="e#1989#1990#0" expanded="true" />
+                <element signature="e#648#649#0" expanded="true" />
+                <element signature="e#702#703#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ORM.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/orm/components/ORM.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1705" max-vertical-offset="2196">
+              <caret line="330" column="67" selection-start-line="330" selection-start-column="67" selection-end-line="330" selection-end-column="67" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#sync#0;class#ORM#0" expanded="false" />
+                <element signature="method#getFieldsSQLStatements#0;class#ORM#0" expanded="false" />
+                <element signature="e#1887#1914#0" expanded="true" />
+                <element signature="e#2450#2458#0" expanded="true" />
+                <element signature="e#4626#4633#0" expanded="true" />
+                <element signature="docComment;method#retrieve#0;class#ORM#0" expanded="false" />
+                <element signature="method#retrieve#0;class#ORM#0" expanded="false" />
+                <element signature="method#getEntitiesFields#0;class#ORM#0" expanded="false" />
+                <element signature="e#8645#8662#0" expanded="true" />
+                <element signature="method#create#0;class#ORM#0" expanded="false" />
+                <element signature="e#9726#9734#0" expanded="true" />
+                <element signature="method#update#0;class#ORM#0" expanded="false" />
+                <element signature="method#delete#0;class#ORM#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Entity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/orm/entity/Entity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="162">
+              <caret line="2" column="48" selection-start-line="2" selection-start-column="48" selection-end-line="2" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IEntity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/orm/entity/IEntity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="162">
+              <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JDBCConnection.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/orm/connection/JDBCConnection.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1152">
+              <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+              <folding>
+                <element signature="method#JDBCConnection#0;class#JDBCConnection#0" expanded="false" />
+                <element signature="docComment;method#connect#0;class#JDBCConnection#0" expanded="false" />
+                <element signature="method#connect#0;class#JDBCConnection#0" expanded="false" />
+                <element signature="docComment;method#executeSQL#0;class#JDBCConnection#0" expanded="false" />
+                <element signature="method#executeSQL#0;class#JDBCConnection#0" expanded="false" />
+                <element signature="e#2824#2825#0" expanded="true" />
+                <element signature="e#2860#2861#0" expanded="true" />
+                <element signature="e#2904#2905#0" expanded="true" />
+                <element signature="e#2940#2941#0" expanded="true" />
+                <element signature="e#3022#3023#0" expanded="true" />
+                <element signature="e#3051#3052#0" expanded="true" />
+                <element signature="e#3108#3109#0" expanded="true" />
+                <element signature="e#3147#3148#0" expanded="true" />
+                <element signature="e#3225#3226#0" expanded="true" />
+                <element signature="e#3281#3282#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -177,8 +184,8 @@
       <file leaf-file-name="IORM.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/orm/components/IORM.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="486">
-              <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -199,17 +206,17 @@
         <option value="$PROJECT_DIR$/src/orm/components/interfaces/ORM.java" />
         <option value="$PROJECT_DIR$/src/orm/fields/components/Field.java" />
         <option value="$PROJECT_DIR$/src/app/entities/Line.java" />
-        <option value="$PROJECT_DIR$/src/orm/connection/IConnection.java" />
-        <option value="$PROJECT_DIR$/src/orm/components/IORM.java" />
-        <option value="$PROJECT_DIR$/src/orm/fields/components/CharField.java" />
-        <option value="$PROJECT_DIR$/src/orm/fields/components/AutoIncrementField.java" />
         <option value="$PROJECT_DIR$/src/orm/fields/interfaces/IField.java" />
-        <option value="$PROJECT_DIR$/src/orm/entity/Entity.java" />
-        <option value="$PROJECT_DIR$/src/app/models/Line.java" />
-        <option value="$PROJECT_DIR$/src/orm/entity/IEntity.java" />
         <option value="$PROJECT_DIR$/src/app/Example.java" />
+        <option value="$PROJECT_DIR$/src/app/models/Line.java" />
+        <option value="$PROJECT_DIR$/src/orm/fields/components/AutoIncrementField.java" />
+        <option value="$PROJECT_DIR$/src/orm/components/IORM.java" />
+        <option value="$PROJECT_DIR$/src/orm/connection/IConnection.java" />
         <option value="$PROJECT_DIR$/src/orm/components/ORM.java" />
         <option value="$PROJECT_DIR$/src/orm/connection/JDBCConnection.java" />
+        <option value="$PROJECT_DIR$/src/orm/entity/Entity.java" />
+        <option value="$PROJECT_DIR$/src/orm/entity/IEntity.java" />
+        <option value="$PROJECT_DIR$/src/orm/fields/components/CharField.java" />
       </list>
     </option>
   </component>
@@ -736,12 +743,12 @@
       <workItem from="1420786857729" duration="571000" />
       <workItem from="1421334596407" duration="10000" />
       <workItem from="1421514982520" duration="52000" />
-      <workItem from="1421515453802" duration="28757000" />
+      <workItem from="1421515453802" duration="31681000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29390000" />
+    <option name="totallyTimeSpent" value="32314000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -777,8 +784,9 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39905363" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23501578" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19085173" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1637298" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -793,7 +801,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -871,24 +878,18 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#ORM#1;class#ORM#0" expanded="false" />
             <element signature="method#sync#0;class#ORM#0" expanded="false" />
             <element signature="method#getFieldsSQLStatements#0;class#ORM#0" expanded="false" />
-            <element signature="e#1849#1876#0" expanded="true" />
-            <element signature="e#2412#2420#0" expanded="true" />
-            <element signature="method#getClassesInPackage#0;class#ORM#0" expanded="false" />
-            <element signature="e#4588#4595#0" expanded="true" />
+            <element signature="e#1887#1914#0" expanded="true" />
+            <element signature="e#2450#2458#0" expanded="true" />
+            <element signature="e#4626#4633#0" expanded="true" />
             <element signature="docComment;method#retrieve#0;class#ORM#0" expanded="false" />
             <element signature="method#retrieve#0;class#ORM#0" expanded="false" />
-            <element signature="docComment;method#getEntitiesFields#0;class#ORM#0" expanded="false" />
             <element signature="method#getEntitiesFields#0;class#ORM#0" expanded="false" />
-            <element signature="e#8561#8578#0" expanded="true" />
-            <element signature="docComment;method#create#0;class#ORM#0" expanded="false" />
+            <element signature="e#8645#8662#0" expanded="true" />
             <element signature="method#create#0;class#ORM#0" expanded="false" />
-            <element signature="e#9597#9605#0" expanded="true" />
-            <element signature="docComment;method#update#0;class#ORM#0" expanded="false" />
+            <element signature="e#9726#9734#0" expanded="true" />
             <element signature="method#update#0;class#ORM#0" expanded="false" />
-            <element signature="docComment;method#delete#0;class#ORM#0" expanded="false" />
             <element signature="method#delete#0;class#ORM#0" expanded="false" />
           </folding>
         </state>
@@ -925,7 +926,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="756" max-vertical-offset="13266">
           <caret line="42" column="53" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
           <folding>
-            <marker date="1421619043706" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421670817329" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -978,24 +979,18 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#ORM#1;class#ORM#0" expanded="false" />
             <element signature="method#sync#0;class#ORM#0" expanded="false" />
             <element signature="method#getFieldsSQLStatements#0;class#ORM#0" expanded="false" />
-            <element signature="e#1849#1876#0" expanded="true" />
-            <element signature="e#2412#2420#0" expanded="true" />
-            <element signature="method#getClassesInPackage#0;class#ORM#0" expanded="false" />
-            <element signature="e#4588#4595#0" expanded="true" />
+            <element signature="e#1887#1914#0" expanded="true" />
+            <element signature="e#2450#2458#0" expanded="true" />
+            <element signature="e#4626#4633#0" expanded="true" />
             <element signature="docComment;method#retrieve#0;class#ORM#0" expanded="false" />
             <element signature="method#retrieve#0;class#ORM#0" expanded="false" />
-            <element signature="docComment;method#getEntitiesFields#0;class#ORM#0" expanded="false" />
             <element signature="method#getEntitiesFields#0;class#ORM#0" expanded="false" />
-            <element signature="e#8561#8578#0" expanded="true" />
-            <element signature="docComment;method#create#0;class#ORM#0" expanded="false" />
+            <element signature="e#8645#8662#0" expanded="true" />
             <element signature="method#create#0;class#ORM#0" expanded="false" />
-            <element signature="e#9597#9605#0" expanded="true" />
-            <element signature="docComment;method#update#0;class#ORM#0" expanded="false" />
+            <element signature="e#9726#9734#0" expanded="true" />
             <element signature="method#update#0;class#ORM#0" expanded="false" />
-            <element signature="docComment;method#delete#0;class#ORM#0" expanded="false" />
             <element signature="method#delete#0;class#ORM#0" expanded="false" />
           </folding>
         </state>
@@ -1032,7 +1027,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="756" max-vertical-offset="15282">
           <caret line="42" column="53" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
           <folding>
-            <marker date="1421619043706" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421670817329" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1085,24 +1080,18 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#ORM#1;class#ORM#0" expanded="false" />
             <element signature="method#sync#0;class#ORM#0" expanded="false" />
             <element signature="method#getFieldsSQLStatements#0;class#ORM#0" expanded="false" />
-            <element signature="e#1849#1876#0" expanded="true" />
-            <element signature="e#2412#2420#0" expanded="true" />
-            <element signature="method#getClassesInPackage#0;class#ORM#0" expanded="false" />
-            <element signature="e#4588#4595#0" expanded="true" />
+            <element signature="e#1887#1914#0" expanded="true" />
+            <element signature="e#2450#2458#0" expanded="true" />
+            <element signature="e#4626#4633#0" expanded="true" />
             <element signature="docComment;method#retrieve#0;class#ORM#0" expanded="false" />
             <element signature="method#retrieve#0;class#ORM#0" expanded="false" />
-            <element signature="docComment;method#getEntitiesFields#0;class#ORM#0" expanded="false" />
             <element signature="method#getEntitiesFields#0;class#ORM#0" expanded="false" />
-            <element signature="e#8561#8578#0" expanded="true" />
-            <element signature="docComment;method#create#0;class#ORM#0" expanded="false" />
+            <element signature="e#8645#8662#0" expanded="true" />
             <element signature="method#create#0;class#ORM#0" expanded="false" />
-            <element signature="e#9597#9605#0" expanded="true" />
-            <element signature="docComment;method#update#0;class#ORM#0" expanded="false" />
+            <element signature="e#9726#9734#0" expanded="true" />
             <element signature="method#update#0;class#ORM#0" expanded="false" />
-            <element signature="docComment;method#delete#0;class#ORM#0" expanded="false" />
             <element signature="method#delete#0;class#ORM#0" expanded="false" />
           </folding>
         </state>
@@ -1168,7 +1157,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="2988" max-vertical-offset="22950">
           <caret line="166" column="12" selection-start-line="166" selection-start-column="12" selection-end-line="166" selection-end-column="12" />
           <folding>
-            <marker date="1421619043706" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1421670817329" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1197,14 +1186,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/orm/connection/IConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="324">
-          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar!/java/sql/ResultSet.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.08" vertical-offset="1709" max-vertical-offset="7308">
@@ -1229,78 +1210,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/orm/components/IORM.java">
+    <entry file="file://$PROJECT_DIR$/src/app/models/Line.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="486">
-          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="324">
+          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/orm/fields/components/CharField.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="936">
-          <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#430#431#0" expanded="true" />
-            <element signature="e#464#465#0" expanded="true" />
-            <element signature="e#495#496#0" expanded="true" />
-            <element signature="e#535#536#0" expanded="true" />
-            <element signature="e#953#954#0" expanded="true" />
-            <element signature="e#989#990#0" expanded="true" />
-            <element signature="e#1042#1043#0" expanded="true" />
-            <element signature="e#1105#1106#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/orm/fields/components/AutoIncrementField.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="594">
-          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="576">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#678#679#0" expanded="true" />
-            <element signature="e#732#733#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/orm/fields/interfaces/IField.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
-          <caret line="7" column="61" selection-start-line="7" selection-start-column="61" selection-end-line="7" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/orm/entity/IEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/orm/entity/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
-          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/models/Line.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="324">
-          <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#648#649#0" expanded="true" />
+            <element signature="e#702#703#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1308,37 +1235,49 @@
     <entry file="file://$PROJECT_DIR$/src/app/Example.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="540">
-          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/orm/components/ORM.java">
+    <entry file="file://$PROJECT_DIR$/src/orm/components/IORM.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1332">
-          <caret line="360" column="12" selection-start-line="360" selection-start-column="12" selection-end-line="360" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#ORM#1;class#ORM#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/orm/connection/IConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+          <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/orm/components/ORM.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1705" max-vertical-offset="2196">
+          <caret line="330" column="67" selection-start-line="330" selection-start-column="67" selection-end-line="330" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
             <element signature="method#sync#0;class#ORM#0" expanded="false" />
             <element signature="method#getFieldsSQLStatements#0;class#ORM#0" expanded="false" />
-            <element signature="e#1849#1876#0" expanded="true" />
-            <element signature="e#2412#2420#0" expanded="true" />
-            <element signature="method#getClassesInPackage#0;class#ORM#0" expanded="false" />
-            <element signature="e#4588#4595#0" expanded="true" />
+            <element signature="e#1887#1914#0" expanded="true" />
+            <element signature="e#2450#2458#0" expanded="true" />
+            <element signature="e#4626#4633#0" expanded="true" />
             <element signature="docComment;method#retrieve#0;class#ORM#0" expanded="false" />
             <element signature="method#retrieve#0;class#ORM#0" expanded="false" />
-            <element signature="docComment;method#getEntitiesFields#0;class#ORM#0" expanded="false" />
             <element signature="method#getEntitiesFields#0;class#ORM#0" expanded="false" />
-            <element signature="e#8561#8578#0" expanded="true" />
-            <element signature="docComment;method#create#0;class#ORM#0" expanded="false" />
+            <element signature="e#8645#8662#0" expanded="true" />
             <element signature="method#create#0;class#ORM#0" expanded="false" />
-            <element signature="e#9597#9605#0" expanded="true" />
-            <element signature="docComment;method#update#0;class#ORM#0" expanded="false" />
+            <element signature="e#9726#9734#0" expanded="true" />
             <element signature="method#update#0;class#ORM#0" expanded="false" />
-            <element signature="docComment;method#delete#0;class#ORM#0" expanded="false" />
             <element signature="method#delete#0;class#ORM#0" expanded="false" />
           </folding>
         </state>
@@ -1346,13 +1285,72 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/orm/connection/JDBCConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35371178" vertical-offset="1044" max-vertical-offset="1512">
-          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1152">
+          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding>
+            <element signature="method#JDBCConnection#0;class#JDBCConnection#0" expanded="false" />
+            <element signature="docComment;method#connect#0;class#JDBCConnection#0" expanded="false" />
+            <element signature="method#connect#0;class#JDBCConnection#0" expanded="false" />
+            <element signature="docComment;method#executeSQL#0;class#JDBCConnection#0" expanded="false" />
+            <element signature="method#executeSQL#0;class#JDBCConnection#0" expanded="false" />
+            <element signature="e#2824#2825#0" expanded="true" />
+            <element signature="e#2860#2861#0" expanded="true" />
+            <element signature="e#2904#2905#0" expanded="true" />
+            <element signature="e#2940#2941#0" expanded="true" />
+            <element signature="e#3022#3023#0" expanded="true" />
+            <element signature="e#3051#3052#0" expanded="true" />
+            <element signature="e#3108#3109#0" expanded="true" />
+            <element signature="e#3147#3148#0" expanded="true" />
+            <element signature="e#3225#3226#0" expanded="true" />
+            <element signature="e#3281#3282#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/orm/entity/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="162">
+          <caret line="2" column="48" selection-start-line="2" selection-start-column="48" selection-end-line="2" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/orm/entity/IEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="162">
+          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/orm/fields/interfaces/IField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/orm/fields/components/CharField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19774011" vertical-offset="488" max-vertical-offset="900">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1122#1123#0" expanded="true" />
-            <element signature="e#1179#1180#0" expanded="true" />
-            <element signature="e#1989#1990#0" expanded="true" />
+            <element signature="e#400#401#0" expanded="true" />
+            <element signature="e#434#435#0" expanded="true" />
+            <element signature="e#465#466#0" expanded="true" />
+            <element signature="e#505#506#0" expanded="true" />
+            <element signature="e#552#553#0" expanded="true" />
+            <element signature="e#590#591#0" expanded="true" />
+            <element signature="e#624#625#0" expanded="true" />
+            <element signature="e#654#655#0" expanded="true" />
+            <element signature="docComment;method#setValue#1;class#CharField#0" expanded="false" />
+            <element signature="method#setValue#1;class#CharField#0" expanded="false" />
+            <element signature="e#1132#1133#0" expanded="true" />
+            <element signature="e#1168#1169#0" expanded="true" />
+            <element signature="e#1221#1222#0" expanded="true" />
+            <element signature="e#1284#1285#0" expanded="true" />
           </folding>
         </state>
       </provider>
