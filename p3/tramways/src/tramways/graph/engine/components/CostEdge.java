@@ -13,15 +13,14 @@ public class CostEdge<Node extends INode> implements ICostEdge<Node> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CostEdge)) return false;
+        if (!(o instanceof CostEdge)) {
+            return false;
+        }
 
         CostEdge costEdge = (CostEdge) o;
 
-        if (!cost.equals(costEdge.cost)) return false;
-        if (!leftNode.equals(costEdge.leftNode)) return false;
-        if (!rightNode.equals(costEdge.rightNode)) return false;
+        return cost.equals(costEdge.cost) && leftNode.equals(costEdge.leftNode) && rightNode.equals(costEdge.rightNode);
 
-        return true;
     }
 
     @Override

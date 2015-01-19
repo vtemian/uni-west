@@ -1,9 +1,10 @@
 package tramways.application.utils;
 
 import tramways.application.Segment;
+import tramways.graph.engine.components.CostEdge;
 import tramways.graph.interfaces.ICostGetter;
 
-public class CostGetter<Edge extends Segment, Cost extends Number> implements ICostGetter<Edge, Cost> {
+public class CostGetter<Edge extends CostEdge, Cost extends Number> implements ICostGetter<Edge, Cost> {
     @Override
     public Cost getCost(Edge edge) {
         return (Cost)edge.getCost();

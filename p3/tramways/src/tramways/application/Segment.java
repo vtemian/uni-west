@@ -2,11 +2,11 @@ package tramways.application;
 
 import tramways.graph.engine.components.CostEdge;
 
-public class Segment extends CostEdge<Node> implements Comparable<Segment>{
+public class Segment<N extends Node> extends CostEdge<N> implements Comparable<Segment>{
     private Integer length;
     private int speed;
 
-    public Segment(Node leftNode, Node rightNode, Float cost, Integer length, int speed) {
+    public Segment(N leftNode, N rightNode, Float cost, Integer length, int speed) {
         super(leftNode, rightNode, cost);
         this.length = length;
         this.speed = speed;
@@ -29,11 +29,11 @@ public class Segment extends CostEdge<Node> implements Comparable<Segment>{
     }
 
     public Float getTime() {
-        return new Float((60 * length) / speed);
+        return (float) ((60 * length) / speed);
     }
 
     @Override
     public int compareTo(Segment segment) {
-        return new Integer(segment.length).compareTo(new Integer(segment.getLength()));
+        return segment.length.compareTo((int) segment.getLength());
     }
 }

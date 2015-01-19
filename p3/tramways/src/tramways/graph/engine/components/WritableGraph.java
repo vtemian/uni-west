@@ -7,7 +7,7 @@ import tramways.graph.interfaces.IWritebleGraph;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class WritableGraph<Node extends INode, Edge extends IEdge<Node>> extends Graph<Node, Edge> implements IWritebleGraph<Node, Edge>{
+public class WritableGraph<Node extends SimpleNode, Edge extends CostEdge<Node>> extends Graph<Node, Edge> implements IWritebleGraph<Node, Edge>{
     public WritableGraph(Map<Node, ArrayList<Edge>> edgesMap) {
         super(edgesMap);
     }

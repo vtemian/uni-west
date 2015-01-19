@@ -3,6 +3,7 @@ package tramways.application;
 import tramways.application.devices.input.CliInputDevice;
 import tramways.application.devices.input.DummyInputDevice;
 import tramways.application.devices.output.CliOutputDevice;
+import tramways.application.importer.Parser;
 import tramways.application.utils.CostGetter;
 import tramways.application.utils.DistanceGetter;
 import tramways.application.utils.TimeGetter;
@@ -17,7 +18,8 @@ import tramways.graph.interfaces.IGraph;
 import java.util.ArrayList;
 
 public class ApplicationController {
-    CliInputDevice in = new CliInputDevice();
+    //CliInputDevice in = new CliInputDevice();
+    DummyInputDevice in = new DummyInputDevice();
     CliOutputDevice out = new CliOutputDevice();
 
     public void run() throws NodeNotFound {
@@ -26,6 +28,9 @@ public class ApplicationController {
         while(true) {
             String option = in.getOption();
 
+            if (option.equals("parse")) {
+                parse();
+            }
             if (option.equals("fastest")) {
                 getFastestRoute(graph);
             }
@@ -41,52 +46,65 @@ public class ApplicationController {
             if (option.equals("exit")){
                 break;
             }
+            break;
         }
     }
 
     public void getAllConnections(IGraph graph) throws NodeNotFound {
-        BFS<Node, Segment, Integer> strategy = new BFS<Node, Segment, Integer>();
-        AllRoutes<BFS, Node> getAllRoutes = new AllRoutes<BFS, Node>(strategy, graph);
+        /*BFS<Junction, Segment, Integer> strategy = new BFS<Junction, Segment, Integer>();
+        AllRoutes<BFS, Junction> getAllRoutes = new AllRoutes<BFS, Junction>(strategy, graph);
 
-        Node startNode = in.getNode("Enter start node name: ");
-        Node endNode = in.getNode("Enter end node name");
+        Junction startJunction = in.getNode("Enter start node name: ");
+        Junction endJunction = in.getNode("Enter end node name");
 
-        ArrayList<ArrayList<Node>> routes = getAllRoutes.computeRoute(startNode, endNode);
-        for(ArrayList<Node> route: routes){
+        ArrayList<ArrayList<Junction>> routes = getAllRoutes.computeRoute(startJunction, endJunction);
+        for(ArrayList<Junction> route: routes){
             out.showRoute(route);
         }
+        */
     }
 
     public void getRoute(IGraph graph, RouteGraphAlgorithm strategy) throws NodeNotFound {
-        ShortestRoute<Dijkstra, Node> getAllRoutes = new ShortestRoute<Dijkstra, Node>((Dijkstra) strategy, graph);
+        ShortestRoute<Dijkstra, Junction> getAllRoutes = new ShortestRoute<Dijkstra, Junction>((Dijkstra) strategy, graph);
 
-        Node startNode = in.getNode("Enter start node name: ");
-        Node endNode = in.getNode("Enter end node name: ");
+        Junction startJunction = in.getNode("Gara");
+        Junction endJunction = in.getNode("AutoGara");
 
-        ArrayList<ArrayList<Node>> routes = getAllRoutes.computeRoute(startNode, endNode);
-        for(ArrayList<Node> route: routes){
+        ArrayList<ArrayList<Junction>> routes = getAllRoutes.computeRoute(startJunction, endJunction);
+        for(ArrayList<Junction> route: routes){
            out.showRoute(route);
         }
     }
 
     public void getCheapestRoute(IGraph graph) throws NodeNotFound {
-        CostGetter<Segment, Float> costGetter = new CostGetter<Segment, Float>();
-        Dijkstra<Node, Segment, Float> strategy = new Dijkstra<Node, Segment, Float>(costGetter);
+        CostGetter<VirtualSegment<Junction, Station>, Float> costGetter = new CostGetter<VirtualSegment<Junction, Station>, Float>();
+        Dijkstra<Junction, VirtualSegment<Junction, Station>, Float> strategy = new Dijkstra<Junction, VirtualSegment<Junction, Station>, Float>(costGetter);
 
         getRoute(graph, strategy);
     }
 
     public void getShortestRoute(IGraph graph) throws NodeNotFound {
+        /*
         DistanceGetter<Segment, Integer> distanceGetter = new DistanceGetter();
-        Dijkstra<Node, Segment, Integer> strategy = new Dijkstra<Node, Segment, Integer>(distanceGetter);
+        Dijkstra<Junction, Segment, Integer> strategy = new Dijkstra<Junction, Segment, Integer>(distanceGetter);
 
         getRoute(graph, strategy);
+        */
     }
 
     public void getFastestRoute(IGraph graph) throws NodeNotFound {
+        /*
         TimeGetter<Segment, Float> distanceGetter = new TimeGetter<Segment, Float>();
-        Dijkstra<Node, Segment, Float> strategy = new Dijkstra<Node, Segment, Float>(distanceGetter);
+        Dijkstra<Junction, Segment, Float> strategy = new Dijkstra<Junction, Segment, Float>(distanceGetter);
 
         getRoute(graph, strategy);
+        */
+    }
+
+    public void parse(){
+        Parser parser = new Parser("/home/wok/Downloads/linii.csv", ",");
+        for(String[] row: parser.parse()) {
+            System.out.println(row[1]);
+        }
     }
 }

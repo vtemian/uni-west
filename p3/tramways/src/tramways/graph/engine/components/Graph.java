@@ -3,12 +3,11 @@ package tramways.graph.engine.components;
 import tramways.graph.exceptions.NodeNotFound;
 import tramways.graph.exceptions.NullNodeException;
 import tramways.graph.interfaces.IEdge;
-import tramways.graph.interfaces.INode;
 import tramways.graph.interfaces.IGraph;
 
 import java.util.*;
 
-public class Graph<Node extends INode, Edge extends IEdge<Node>> implements IGraph<Node, Edge>{
+public class Graph<Node extends SimpleNode, Edge extends CostEdge<Node>> implements IGraph<Node, Edge>{
     protected Map<Node, ArrayList<Edge>> edgesMap = new HashMap<Node, ArrayList<Edge>>();
 
     public Graph(Map<Node, ArrayList<Edge>> edgesMap) {

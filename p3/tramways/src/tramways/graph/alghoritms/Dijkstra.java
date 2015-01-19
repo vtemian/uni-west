@@ -1,5 +1,7 @@
 package tramways.graph.alghoritms;
 
+import tramways.graph.engine.components.CostEdge;
+import tramways.graph.engine.components.SimpleNode;
 import tramways.graph.interfaces.ICostGetter;
 import tramways.graph.interfaces.INode;
 import tramways.graph.interfaces.IGraph;
@@ -10,7 +12,7 @@ import tramways.graph.exceptions.NullNodeException;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class Dijkstra<Node extends INode, Edge extends ICostEdge<Node>, CostType extends Number> implements RouteGraphAlgorithm<Node, Edge, CostType> {
+public class Dijkstra<Node extends SimpleNode, Edge extends CostEdge<Node>, CostType extends Number> implements RouteGraphAlgorithm<Node, Edge, CostType> {
     private ICostGetter<Edge, CostType> costGetter;
     protected IGraph graph;
 

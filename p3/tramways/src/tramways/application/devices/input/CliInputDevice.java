@@ -1,13 +1,13 @@
 package tramways.application.devices.input;
 
-import tramways.application.Node;
-import tramways.application.Segment;
+import tramways.application.Junction;
 import tramways.application.Station;
+import tramways.application.VirtualSegment;
 
 import java.util.*;
 
 public class CliInputDevice implements IInputDevice{
-    protected Map<Node, ArrayList<Segment>> cityMap = new HashMap<Node, ArrayList<Segment>>();
+    protected Map<Junction, ArrayList<VirtualSegment<Junction, Station>>> cityMap = new HashMap<Junction, ArrayList<VirtualSegment<Junction, Station>>>();
 
     public CliInputDevice(){
         generateCityMap();
@@ -29,7 +29,8 @@ public class CliInputDevice implements IInputDevice{
         String input = in.nextLine();
 
         if(input.equals("1"))
-            generateMap();
+            //generateMap();
+            System.out.println("nup");
         else if(input.equals("2"))
             manualMap();
         else if (!input.equals("3")){
@@ -42,11 +43,11 @@ public class CliInputDevice implements IInputDevice{
             generateCityMap();
         }
     }
-
+    /*
     public void generateMap(){
         Random randomGenerator = new Random();
         Station station;
-        ArrayList<Node> nodes = new ArrayList<Node>();
+        ArrayList<Junction> junctions = new ArrayList<Junction>();
         ArrayList<Station> stations = new ArrayList<Station>();
 
         String[] randomNodeNames = {"AEM", "Judetean", "Cluj", "Michelangelo", "Continental", "Iulius Mall",
@@ -76,47 +77,47 @@ public class CliInputDevice implements IInputDevice{
                 stations.remove(station);
                 System.out.println("\t" + jdx + " ." + station.getName());
             }
-            nodes.add(new Node(randomNodeNames[randomInt], randomGenerator.nextFloat(),
+            junctions.add(new Junction(randomNodeNames[randomInt], randomGenerator.nextFloat(),
                                randomGenerator.nextFloat(), stations));
         }
 
         int segments = randomGenerator.nextInt((nodesNumber * (nodesNumber + 1)) / 4);
-        Node node;
+        Junction junction;
         for (int idx = 0; idx <= segments; ++idx) {
-            int randomNode = randomGenerator.nextInt(nodes.size() - 1);
-            node = nodes.get(randomNode);
+            int randomNode = randomGenerator.nextInt(junctions.size() - 1);
+            junction = junctions.get(randomNode);
 
             int randomN = randomGenerator.nextInt(6);
             for (int jdx = 0; jdx <= randomN; ++jdx) {
-                if(nodes.get(jdx).equals(node)) continue;
+                if(junctions.get(jdx).equals(junction)) continue;
 
                 float cost = randomGenerator.nextFloat();
                 int length = randomGenerator.nextInt();
                 int speed = randomGenerator.nextInt();
 
                 System.out.println(randomN);
-                Segment to = new Segment(node, nodes.get(jdx), cost, length, speed);
-                Segment from = new Segment(nodes.get(jdx), node, cost, length, speed);
+                Segment to = new Segment(junction, junctions.get(jdx), cost, length, speed);
+                Segment from = new Segment(junctions.get(jdx), junction, cost, length, speed);
 
                 ArrayList<Segment> segmentsList = new ArrayList<Segment>();
                 segmentsList.add(to);
-                if (cityMap.containsKey(node)) {
-                    segmentsList.addAll(cityMap.get(node));
+                if (cityMap.containsKey(junction)) {
+                    segmentsList.addAll(cityMap.get(junction));
                 }
-                cityMap.put(node, segmentsList);
+                cityMap.put(junction, segmentsList);
 
                 ArrayList<Segment> segmentsList1 = new ArrayList<Segment>();
                 segmentsList1.add(from);
-                if (cityMap.containsKey(nodes.get(jdx))) {
-                    segmentsList1.addAll(cityMap.get(nodes.get(jdx)));
+                if (cityMap.containsKey(junctions.get(jdx))) {
+                    segmentsList1.addAll(cityMap.get(junctions.get(jdx)));
                 }
-                cityMap.put(nodes.get(jdx), segmentsList1);
+                cityMap.put(junctions.get(jdx), segmentsList1);
             }
         }
 
         System.out.println("Done! Ready to start playing around!");
     }
-
+    */
     public void manualMap() {
         System.out.println("Sorry, but for now this is not implemented!");
         generateCityMap();
@@ -152,19 +153,19 @@ public class CliInputDevice implements IInputDevice{
     }
 
     @Override
-    public Map<Node, ArrayList<Segment>> getCityMap() {
+    public Map<Junction, ArrayList<VirtualSegment<Junction, Station>>> getCityMap() {
         return cityMap;
     }
 
     @Override
-    public Node getNode(String message) {
+    public Junction getNode(String message) {
         Scanner in = new Scanner(System.in);
         System.out.println(message);
         String name = in.nextLine();
 
-        for(Node node: cityMap.keySet()) {
-            System.out.println(node.getName());
-            if(node.getName().equals(name)) return node;
+        for(Junction junction : cityMap.keySet()) {
+            System.out.println(junction.getName());
+            if(junction.getName().equals(name)) return junction;
         }
         System.out.println("Invalid node. Let's try again");
         return getNode(message);
