@@ -14,7 +14,7 @@ public class DummyInputDevice extends CliInputDevice{
     }
 
     public String getOption(){
-        return "parse";
+        return "import";
     }
 
     @Override
@@ -140,5 +140,25 @@ public class DummyInputDevice extends CliInputDevice{
         balcescu.add(balcescu_8);
 
         return new Junction(name, new Float(45.0), new Float(45.0), balcescu);
+    }
+
+    @Override
+    public String getCSVFile() {
+        return "/home/wok/Downloads/linii.csv";
+    }
+
+    @Override
+    public String getDBConnectionString() {
+        return "jdbc:mysql://localhost/tramways";
+    }
+
+    @Override
+    public String getDBUser() {
+        return "root";
+    }
+
+    @Override
+    public String getDBPass() {
+        return "seleus00";
     }
 }

@@ -158,6 +158,26 @@ public class CliInputDevice implements IInputDevice{
     }
 
     @Override
+    public String getCSVFile() {
+        return null;
+    }
+
+    @Override
+    public String getDBConnectionString() {
+        return null;
+    }
+
+    @Override
+    public String getDBUser() {
+        return null;
+    }
+
+    @Override
+    public String getDBPass() {
+        return null;
+    }
+
+    @Override
     public Junction getNode(String message) {
         Scanner in = new Scanner(System.in);
         System.out.println(message);

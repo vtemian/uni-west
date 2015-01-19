@@ -248,17 +248,26 @@ public class ORM implements IORM{
      */
     @Override
     public void create(IEntity entity) {
-        int counter;
-        ArrayList<String> values = new ArrayList<String>();
-        String statement = "INSERT INTO " + entity.getClass().getSimpleName() + " VALUES ( ";
+        int counter=0;
+        String values="";
+        String columns="";
+        String statement = "INSERT INTO " + entity.getClass().getSimpleName() + "(";
 
         // get all the fields
         for(Entry<Field, Class<?>> entry: getEntitiesFields(entity).entrySet()){
             try{
+                if(entry.getKey().getName().equals("ID"))
+                    continue;
                 // retrieve the value of a certain field
                 Method method = entry.getValue().getDeclaredMethod("getValue");
                 String value = method.invoke(entry.getKey().get(entity)).toString();
-                values.add(value);
+                if(counter > 0){
+                    values += ",";
+                    columns += ",";
+                }
+                values += value;
+                columns += entry.getKey().getName();
+                counter++;
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
@@ -269,16 +278,7 @@ public class ORM implements IORM{
         }
 
         // builds the query with the given values
-        counter = 0;
-        for(String value: values) {
-            if(counter > 0)
-                statement += ",";
-
-            statement += value;
-            counter++;
-        }
-        statement += ");";
-
+        statement += columns + ") VALUES (" + values + ");";
         // execute the query
         dbConnection.executeSQL(statement, "UPDATE");
     }

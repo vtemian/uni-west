@@ -1,9 +1,12 @@
 package tramways.application;
 
+import orm.components.ORM;
+import orm.connection.JDBCConnection;
 import tramways.application.devices.input.CliInputDevice;
 import tramways.application.devices.input.DummyInputDevice;
 import tramways.application.devices.output.CliOutputDevice;
 import tramways.application.importer.Parser;
+import tramways.application.importer.models.Line;
 import tramways.application.utils.CostGetter;
 import tramways.application.utils.DistanceGetter;
 import tramways.application.utils.TimeGetter;
@@ -28,8 +31,8 @@ public class ApplicationController {
         while(true) {
             String option = in.getOption();
 
-            if (option.equals("parse")) {
-                parse();
+            if (option.equals("import")) {
+                importData();
             }
             if (option.equals("fastest")) {
                 getFastestRoute(graph);
@@ -101,10 +104,19 @@ public class ApplicationController {
         */
     }
 
-    public void parse(){
-        Parser parser = new Parser("/home/wok/Downloads/linii.csv", ",");
+    public void importData(){
+        String dbPass = in.getDBPass();
+        String dbUser = in.getDBUser();
+        String dbConnectionString = in.getDBConnectionString();
+
+        JDBCConnection connection = new JDBCConnection(dbPass, dbUser, dbConnectionString);
+        ORM orm = new ORM("tramways.application.importer.models", connection);
+        orm.sync();
+
+        Parser parser = new Parser(in.getCSVFile(), ",");
         for(String[] row: parser.parse()) {
-            System.out.println(row[1]);
+            Line line = new Line(row);
+            orm.create(line);
         }
     }
 }

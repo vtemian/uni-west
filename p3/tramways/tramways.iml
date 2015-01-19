@@ -7,5 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="src" level="project" />
+    <orderEntry type="library" name="com.mysql.jdbc:com.springsource.com.mysql.jdbc:5.1.6" level="project" />
   </component>
 </module>

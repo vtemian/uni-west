@@ -12,4 +12,9 @@ public interface IInputDevice {
     public String getOption();
     public Map<Junction, ArrayList<VirtualSegment<Junction, Station>>> getCityMap();
     public Junction getNode(String message);
+    public String getCSVFile();
+
+    public String getDBConnectionString();
+    public String getDBUser();
+    public String getDBPass();
 }
