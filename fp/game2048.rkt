@@ -73,7 +73,41 @@
 ; This function can be implemented by nested if's to perform case distinction:
 ;  - if row has length 0, 1, 2, 3, 4 ; if some neighboring elements ar equal; etc.
 (define (collapseRow row)
-  'your-code-here)
+    (append (list (get-value row)) (put-zeros (collapseRow-acc row) 4))
+)
+
+(define (put-zeros l n)
+    (if (< (length l) n) (put-zeros (append l '(0)) n) l)
+)
+
+(define (skip n l)
+  (cond
+    [(= n 0) l]
+    [else (skip (- n 1) (cdr l))]
+  )
+)
+
+(define (caar l) (car (cdr l)))
+
+(define (get-value row)
+    (cond
+        [(<= (length row) 1) 0]
+        [(= (car row) 0) (get-value (cdr row))]
+        [(= (car row) (caar row))
+         (+ (* 2 (car row)) (get-value (skip 2 row)))]
+        [else (get-value (cdr row))]
+    )
+)
+
+(define (collapseRow-acc row)
+    (cond
+        [(<= (length row) 1) row]
+        [(= (car row) 0) (collapseRow-acc (cdr row))]
+        [(= (car row) (caar row))
+         (cons (* 2 (car row)) (collapseRow-acc (skip 2 row)))]
+        [else (cons (car row) (collapseRow-acc (cdr row)))]
+    )
+)
 
 ; detect neighbor cells in a row
 (define (neighbor-cells? row)
