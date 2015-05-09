@@ -128,7 +128,7 @@
 ; detect if the game is lost
 (define (isLost? game)
   'your-code-here)
-  
+
 ; transpose a matrix
 (define (transpose A) 
   (if (eq? (length (car A)) 0) 
@@ -150,10 +150,10 @@
 ; 4) the score of the new game is the old score, to which we add the scores from all 'rows with score'
 ;    In Racket, this computation is a simple call of (foldr + ...)
 (define (moveLeft game)
-  (define rows-with-score 
-    (map (compose collapseRow (lambda (row) (filter non-zero? row))) 
-                      (Game-board game)))
-  (Game (map cdr rows-with-score) 
+  (define rows-with-score
+    (map (compose collapseRow (lambda (row) (filter non-zero? row)))
+                      (reverse (Game-board game))))
+  (Game (map cdr (reverse rows-with-score))
         (foldr + (Game-score game) (map car rows-with-score))))
 
 ; moveUp simulates the shift up of all tiles
@@ -164,21 +164,25 @@
                       (transpose (Game-board game))))
   (Game (transpose (map cdr rows-with-score)) 
         (foldr + (Game-score game) (map car rows-with-score))))
-  
+
 ; moveDown simulates the shift down of all tiles
 ; Note that a moveDown can be simulated as follows:
 ;    1) we perform a moveLeft of the transpose of the board obtained by reversing all rows.
 ;    2) The new board is obtained by reversing the rows of the previously computed board, 
 ;       and then transposing it
-(define (moveDown game)
-  'your-code-here)
+(define (moveDown game))
 
 ; moveRight simulates the shift to the right of all tiles
 ; Note that a moveRight can be simulated as follows:
 ;    1) we perform a moveLeft of the board obtained by reversing all rows.
 ;    2) The new board is obtained by reversing the rows of the previously computed board
 (define (moveRight game)
-  'your-code-here)
+  (define rows-with-score
+    (map (compose collapseRow (lambda (row) (filter non-zero? row)))
+                      (reverse (Game-board game))))
+  (Game (map (reverse compose cdr rows-with-score))
+        (foldr + (Game-score game) (map car rows-with-score))))
+
 
 ; a functional that returns the function that performs the move 
 ; chosen by the user 
