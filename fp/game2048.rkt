@@ -29,10 +29,14 @@
 
 ; (zero-replace n v list) replaces the n-th zero in the list l with v
 (define (zero-replace n v l)
-    (if (and (equal? (car l) 0) (equal? n 0))
-         (append (list v) (cdr l))
-         (append (list (car l)) (zero-replace (- n 1) v (cdr l)))
-    )
+     (if (equal? (car l) 0)
+         (if (equal? (- n 1) 0)
+             (append (list v) (cdr l))
+             (append (list (car l)) (zero-replace (- n 1) v (cdr l)))
+         )
+         (append (list (car l)) (zero-replace n v (cdr l)))
+     )
+
 )
 
 ; (split-4 l) splits a list elements into chunks of lists of 4 elements
