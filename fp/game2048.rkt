@@ -19,12 +19,12 @@
 ; viewer of the current state of the game
 (define (show game)
   (displayln (format "Score: ~a" (Game-score game)))
-  (map (lambda (row) 
+  (map (lambda (row)
          (map (lambda (cell)
                 (display "|")
-                (display (if (= cell 0) ".   " (~v cell #:width 4)))) 
+                (display (if (= cell 0) ".   " (~v cell #:width 4))))
               row)
-         (displayln "|")) 
+         (displayln "|"))
        (Game-board game)))
 
 ; (zero-replace n v list) replaces the n-th zero in the list l with v
@@ -123,7 +123,7 @@
 ; detect if the game is won
 ;
 (define (isWon? game)
-  'your-code-here)
+    (= (apply max (car (Game-board game))) 2048))
 
 ; detect if the game is lost
 (define (isLost? game)
