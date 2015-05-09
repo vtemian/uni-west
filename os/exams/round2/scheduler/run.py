@@ -13,7 +13,7 @@ input_file = sys.argv[1]
 content = TextParser(input_file).parse()
 out = CliOutputDevice()
 
-gantt, times = RRScheduler(content).schedule()
+gantt, times = RRScheduler(content).schedule(20)
 out.pprint("\n++++++ rr ++++++\n")
 out.gantt(gantt)
 out.times(times)

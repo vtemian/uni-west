@@ -13,18 +13,18 @@ if len(sys.argv) < 2:
 out = CliOutputDevice()
 content = TextParser(sys.argv[1]).parse()
 
-result = FIFOAlgorithm(content, 3).compute()
+result = FIFOAlgorithm(content, 4).compute()
 out.pprint("++++++ fifo +++++++")
 out.table(result)
 
-result = OptimalAlgorithm(content, 3).compute()
+result = OptimalAlgorithm(content, 4).compute()
 out.pprint("++++++ optimal +++++++")
 out.table(result)
 
-result = LRUAlgorithm(content, 3).compute()
+result = LRUAlgorithm(content, 4).compute()
 out.pprint("++++++ lru +++++++")
 out.table(result)
 
-result = ClockAlgorithm(content, 3).compute()
+result = ClockAlgorithm(content, 4).compute()
 out.pprint("++++++ clock +++++++")
 out.table(result)

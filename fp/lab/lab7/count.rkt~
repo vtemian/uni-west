@@ -1,0 +1,28 @@
+(define (count nlist s)
+  (cond [(null? nlist) 0]
+        [(number? (car nlist) (count (cdr nlist)))]
+        [(symbol? (car nlist))
+            (if (eqv? (car nlist) s)
+                1
+                (count (cdr nlist) s)
+            )
+        ]
+        [(and (nlist? (car nlist))
+              (nlist? (cdr nlist))
+         )]
+  )
+)
+
+(define (notate-depth lst)
+    (notate-depth-in-list lst 1)
+)
+
+(define (notate-depth-in-list lst d)
+    (cond[(null? lst)]
+         [(symbol? (car lst) '((car lst) d))]
+         [(list? (car lst) (notate-depth-in-list (cdr lst) (+ d 1)))]
+    )
+)
+
+(notate-depth '(a (b (c d) e) f))
+@; '((a 1) ((b 2) ((c 3) (d 3)) (e 2)) (f 1))

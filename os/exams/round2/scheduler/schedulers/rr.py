@@ -10,6 +10,7 @@ class RRScheduler(Scheduler):
 
         if quanta is None:
             quanta = self._get_quanta(sorted([proc['burst'] for proc in self.content]))
+            print quanta
 
         request_queue = Queue()
 
