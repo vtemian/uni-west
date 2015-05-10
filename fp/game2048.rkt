@@ -151,26 +151,30 @@
 ;    In Racket, this computation is a simple call of (foldr + ...)
 (define (moveLeft game)
   (define rows-with-score
-    (map (compose collapseRow (lambda (row) (filter non-zero? row)))
-                      (reverse (Game-board game))))
-  (Game (map cdr (reverse rows-with-score))
-        (foldr + (Game-score game) (map car rows-with-score))))
-
+    (map (compose collapseRow (lambda (row) (filter non-zero? row))) 
+                      (Game-board game)))
+  (Game (map cdr rows-with-score) 
+        (foldr + (Game-score game) (map car rows-with-score)))
 ; moveUp simulates the shift up of all tiles
 ; Note that a moveUp coincides with a transpose of the moveLeft of the transposed board
 (define (moveUp game)
-  (define rows-with-score 
-    (map (compose collapseRow (lambda (row) (filter non-zero? row))) 
+  (define rows-with-score
+    (map (compose collapseRow (lambda (row) (filter non-zero? row)))
                       (transpose (Game-board game))))
-  (Game (transpose (map cdr rows-with-score)) 
+  (Game (transpose (map cdr rows-with-score))
         (foldr + (Game-score game) (map car rows-with-score))))
 
 ; moveDown simulates the shift down of all tiles
 ; Note that a moveDown can be simulated as follows:
-;    1) we perform a moveLeft of the transpose of the board obtained by reversing all rows.
+;    1) we perform a moveDown of the transpose of the board obtained by reversing all rows.
 ;    2) The new board is obtained by reversing the rows of the previously computed board, 
 ;       and then transposing it
-(define (moveDown game))
+(define (moveDown game)
+  (define rows-with-score
+    (map (compose collapseRow (lambda (row) (filter non-zero? row)))
+                      (transpose (map reverse (Game-board game)))))
+  (Game (reverse (map reverse (transpose (map cdr rows-with-score))))
+        (foldr + (Game-score game) (map car rows-with-score))))
 
 ; moveRight simulates the shift to the right of all tiles
 ; Note that a moveRight can be simulated as follows:
@@ -180,9 +184,8 @@
   (define rows-with-score
     (map (compose collapseRow (lambda (row) (filter non-zero? row)))
                       (reverse (Game-board game))))
-  (Game (map (reverse compose cdr rows-with-score))
+  (Game (map cdr (reverse rows-with-score)) 
         (foldr + (Game-score game) (map car rows-with-score))))
-
 
 ; a functional that returns the function that performs the move 
 ; chosen by the user 
