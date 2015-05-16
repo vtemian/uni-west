@@ -230,18 +230,23 @@
          (f element))
        flist))
 
+;get the number of zeros from a game
 (define (get-zeros game)
   (list (foldr (lambda (x y) (+ (length x) y)) 0 (map (lambda (x) (filter zero? x)) 
        (Game-board game))) game)
 )
 
+;sort the games by their zeros number
 (define (decide-next lst)
      (car (cdr (car (cdr (sort lst #:key car >)))))
 )
 
 (define (choose-next-game game)
+  ;decide what game to choose next
   (decide-next
+         ;get all zeros from each game
          (map get-zeros
+              ;execute all the possible moves
               (apply-function-list (list moveDown moveUp moveLeft moveRight) game)))
   )
 
