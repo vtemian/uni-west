@@ -1,5 +1,32 @@
 #lang racket
 
+(struct graph (nodes edges))
+(define G1 (graph '(a b c d e f g)
+                  '((a b) (c b) (c d) (d a) (d e) (d f)
+                          (e g) (f e) (g b) (g c) (g f))))
+(define (outgoing G v)
+ (map cadr (filter (lambda (e) (eq? (first e) v))(graph-edges G))))
+
+(define (incoming G v)
+ (map first (filter (lambda (e) (eq? (second e) v))(graph-edges G))))
+
+(define (inDegree G v)
+  (length (incoming G v)))
+
+(define (outDegree G v)
+  (length (outgoing G v)))
+
+
+(define (adj G)
+  (foldl (lambda (x r1)
+           (append r1
+                   (list (foldl (lambda (y r2)
+               (if (member (list x y) (graph-edges G)) (append r2 (list 1))
+                   (append r2 (list 0)))) '() (graph-nodes G) ))
+            )
+         )  '() (graph-nodes G))
+)
+
 (define (transpose-simple arr)
   (apply map list arr))
 
@@ -15,9 +42,6 @@
   (if (eq? (sum (map length arr)) 0) '()
      (append (list (map car arr)) (transpose-recv (map cdr arr)))    
   ))
-
-(define T1 '((0 1 1) (0 1 1) (1 0 0)))
-(define T2 '((1 0 0) (0 1 0) (1 0 1)))
 
 (define (boolSum-row a b r)
   (append r (list(foldr (lambda (x y r2)
@@ -39,4 +63,16 @@
   (if (eq? k 1)  A
       (boolSum A (boolProd A (sumTo A (- k 1))))))
 
-(sumTo T1 3)
+(define (sumOne A)
+   (if (eq? (length (car A)) 1) (caar A)
+   (+ (caar A) (sumOne (map cdr (cdr A)))))
+)
+
+(define (hasOne? A)
+ (eq? (sumOne A) (length A)) #t #f)
+
+(define (hasCycle? G)
+  (hasOne? (sumTo (adj G) (length (graph-nodes G))))
+)
+
+(hasCycle? G1)
