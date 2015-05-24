@@ -18,7 +18,11 @@
 
 
 (define (adj G)
-  (map (lambda (x) (map (lambda (y) 
-                          (build-adj y (outgoing G x)))
-       (graph-nodes G))
+  (foldl (lambda (x r1)
+           (append r1
+                   (list (foldl (lambda (y r2)
+               (if (member (list x y) (graph-edges G)) (append r2 (list 1))
+                   (append r2 (list 0)))) '() (graph-nodes G) ))
+            )
+         )  '() (graph-nodes G))
 )
