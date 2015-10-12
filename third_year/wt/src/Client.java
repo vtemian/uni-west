@@ -26,8 +26,8 @@ public class Client implements Runnable{
 
         //Connecting to the remote socket address:
         InetAddress remoteIpAddress = null;
-        remoteIpAddress = InetAddress.getByName("localhost");
-        int remoteIpPort = 20000;
+        remoteIpAddress = InetAddress.getByName("google.ro");
+        int remoteIpPort = 443;
         SocketAddress remoteSocketAddress = new InetSocketAddress (remoteIpAddress, remoteIpPort);
         socket.connect (remoteSocketAddress);
 
@@ -36,15 +36,20 @@ public class Client implements Runnable{
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream ()));
         BufferedWriter writer = null;
         writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream ()));
-        String request = "Hello";
+        String request = "GET / HTTP/1.1\n" +
+                "Accept: text/html\n" +
+                "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)\n" +
+                "Host: google.ro\n\n";
         writer.write (request);
-        writer.newLine ();
 
         // Do not forget to flush
         writer.flush ();
 
         // Reading the response
-        String response = reader.readLine ();
+        String response;
+        while((response=reader.readLine()) != null) {
+            System.out.println(response);
+        }
 
         //Shutting-down the inbound and outbound streams:
         socket.shutdownInput ();
