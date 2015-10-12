@@ -1,7 +1,0 @@
-#include <stdio.h>
-
-int main(){
-    int buf[] = {1,2,3,4,5}, len=5;
-     while (len-- > 0) printf("%d\n", buf[len]);
-    return 0;
-}
