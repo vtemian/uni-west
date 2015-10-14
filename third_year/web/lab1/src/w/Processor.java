@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 public class Processor {
     private Config config;
-    private HashMap<String, String> configForHost;
 
     public Processor(Config config) {
         this.config = config;
@@ -17,6 +16,7 @@ public class Processor {
 
     public String process(HashMap<String, String> request) {
         String host = request.get("Host").split(":")[0];
+        HashMap<String, String> configForHost;
         if (host == null)
             configForHost = config.getFor("default");
         else
@@ -45,7 +45,7 @@ public class Processor {
     }
 
     public String invalidMethod(String method) {
-        return Processor.buildResponse("405", "Method not allowed");
+        return Processor.buildTextResponse("405", "Method not allowed");
     }
 
     public boolean resourceExists(String resource) {
@@ -59,12 +59,15 @@ public class Processor {
     }
 
     public static String invalidRequest() {
-        return buildResponse("400", "Invalid Request");
+        return buildTextResponse("400", "Invalid Request");
     }
 
-    public static String buildResponse(String statusCode, String content) {
+    public static String buildTextResponse(String statusCode, String content) {
+        return Processor.buildResponse(statusCode, content, "text/html");
+    }
+    public static String buildResponse(String statusCode, String content, String contentType) {
         return  "HTTP/1.1 " + statusCode + " OK\n" +
-                "Content-Type: text/html; charset=UTF-8\n" +
+                "Content-Type: " + contentType + "\n" +
                 "Connection: close\n" +
                 "Content-Length: " + (content.length() + 1) + "\n\n" +
                 content;
@@ -72,10 +75,11 @@ public class Processor {
 
     public String loadStaticResource(String resource) {
         try {
+            String contentType = Files.probeContentType(Paths.get(resource));
             String content = new String(Files.readAllBytes(Paths.get(resource)));
-            return Processor.buildResponse("200", content);
+            return Processor.buildResponse("200", content, contentType);
         } catch (IOException e) {
-            return Processor.buildResponse("500", "Server Error");
+            return Processor.buildTextResponse("500", "Server Error");
         }
     }
 
@@ -94,7 +98,7 @@ public class Processor {
             for (File file: directory.listFiles()) {
                 String name = file.getName();
                 if (file.isFile()) {
-                    content += "<li>" + name + "</li>";
+                    content += "<li><a href=" + name +">" + name + "</a></li>";
                 } else if (file.isDirectory()) {
                     content += "<li><a href=" + name +"/>" + name + "/</a></li>";
                 }
@@ -103,9 +107,9 @@ public class Processor {
 
             template = template.replace("{{ list }}", content);
             template = template.replace("{{ directory }}", base);
-            return Processor.buildResponse("200", template);
+            return Processor.buildResponse("200", template, "text/html");
         } catch (IOException e) {
-            return Processor.buildResponse("500", "Server Error");
+            return Processor.buildTextResponse("500", "Server Error");
         }
     }
 }
