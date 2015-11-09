@@ -1,7 +1,7 @@
 686253	Arad	Arad	Arad,Judetul Arad,Judeţul Arad,Județul Arad	46.33333	21.75	A	ADM1	RO		02				453329		112	Europe/Bucharest	2015-02-27
 6299713	Timișoara	Timisoara Traian Vuia International Airport	Aeroport international Traian-Vuia,Aeroportul International Timisoara - Traian Vuia,Aeroportul Internațional Timișoara - Traian Vuia,Aéroport international Traian-Vuia,LRTR,TSR,Timisoara Traian Vuia International Airport,Timișoara Traian Vuia International Airport,frwdgah byn‌almlly trayan wwya,mtar trayan fwya aldwly,toraian・vuia guo ji kong gang,فرودگاه بین‌المللی ترایان وویا,مطار ترايان فويا الدولي,トライアン・ヴイア国際空港	45.80986	21.33786	S	AIRP	RO		36				0	106	105	Europe/Bucharest	2015-08-30
 6299707	Oradea	Oradea	LROD,OMR	47.02528	21.9025	S	AIRP	RO						0	141	133	Europe/Bucharest	2007-01-03
-8334955	Municipiul Cluj-Napoca	Municipiul Cluj-Napoca		46.77791	23.60512	A	ADM2	RO		13	54975			0		333	Europe/Bucharest	2012-06-10
+8334955	Cluj-Napoca	Municipiul Cluj-Napoca		46.77791	23.60512	A	ADM2	RO		13	54975			0		333	Europe/Bucharest	2012-06-10
 675810	Iaşi	Iasi	Copou,Copou-Targ,Copou-Târg,Galata,Gorad Jasy,IAS,Iasi,Iasio,Iassium,Iaşi,Iași,Ilasi,Jasai,Jash,Jashi,Jasi,Jassenmarkt,Jassi,Jassy,Jasy,Jaszvasar,Jaßenmarkt,Jászvásár,Munteni,Pacurari,Pacuret,Podgoria,Păcurari,Păcureţ,Socol,Socola,Yas,Yashi,Yasi,Yassi,Yassy,Yaş,ayashy,iasi,ya xi,yach,yasa,yash,yashi,Ιάσιο,Јаши,Горад Ясы,Ясси,Яссы,Яш,Յասի,יאס,יאשי,ایاشی,ياش,یاش,याश,ยาช,ヤシ,雅西,이아시	47.16667	27.6	P	PPLA	RO		23	95060			318012		66	Europe/Bucharest	2013-06-29
 667872	Satu Mare	Satu Mare	Satu Mare,Satu-Mare,Satul-Mare,Сату-Маре	47.83333	26.01667	P	PPLA2	RO		34	150196			4091		337	Europe/Bucharest	2012-06-12
 486885	Suceava	Suceava	Suceava,Suchava,Suczawa	47.53333	26.53333	H	STM	RO	RO	00				0		232	Europe/Bucharest	2012-01-17

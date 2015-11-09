@@ -8,24 +8,24 @@ from alghoritms import a_star_search, distance_on_unit_sphere
 
 with open("input/RO_small.txt") as f:
     min_lat = 99
-    min_lng = 99
+    min_lng = 0
 
     max_lat = 0
-    max_lng = 0
+    max_lng = -99
 
     cities = {}
     for line in f.readlines():
         fields = line.split("\t")[1:]
         try:
-            lat = list(filter(lambda x: x.startswith("4"), fields))[0]
-            lng = list(filter(lambda x: x.startswith("2") and not x.startswith("20"), fields))[0]
-            cities[fields[0]] = (float(lat), float(lng))
+            lng = list(filter(lambda x: x.startswith("4"), fields))[0]
+            lat = list(filter(lambda x: x.startswith("2") and not x.startswith("20"), fields))[0]
+            cities[fields[0]] = (float(lat), -1 * float(lng))
 
             min_lat = min([float(lat), min_lat])
-            min_lng = min([float(lng), min_lng])
+            min_lng = min([-1*float(lng), min_lng])
 
             max_lat = max([float(lat), max_lat])
-            max_lng = max([float(lng), max_lng])
+            max_lng = max([-1*float(lng), max_lng])
         except:
             continue
 
@@ -57,7 +57,9 @@ for i in range(int((size * size) * 30 / 100)):
 grid.weights = {city: randint(1, 200) for city in list(itertools.permutations(range(size), 2))}
 
 city1 = "Timișoara"
-city2 = "Suceava"
+city2 = "Cluj-Napoca"
+
+print(cities[city1], cities[city2])
 
 came_from, cost_so_far = a_star_search(grid, cities[city1], cities[city2], distance_on_unit_sphere)
 draw_grid(grid, width=3, point_to=came_from, start=cities[city1], goal=cities[city2])
