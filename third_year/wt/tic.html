@@ -1,0 +1,57 @@
+<html>
+    <head>
+    </head>
+        <script>
+            var tic = true;
+
+            function storageAdd(key, value) {
+                var game = JSON.parse(localStorage.getItem("game"));
+                game[key] = value
+                localStorage.setItem("game", JSON.stringify(game));
+            }
+
+            function onClick() {
+                if (this.value != "X" || this.value != "O") {
+                    this.value = tic ? "X" : "O";
+                    storageAdd(this.name, this.value);
+                    tic = tic ? false : true;
+                }
+            }
+
+            function onLoad() {
+                var game = localStorage.getItem("game");
+                if (game == null) {
+                    game = {};
+                    localStorage.setItem("game", JSON.stringify(game));
+                } else {
+                    game = JSON.parse(localStorage.getItem("game"));
+                }
+                var actions = document.getElementsByClassName("action");
+                for (var i = 0; i < actions.length; i++) {
+                    actions[i].addEventListener("click", onClick);
+                    actions[i].value = game[actions[i].name] == undefined ? " " : game[actions[i].name];
+                }
+
+                document.getElementById('clear').onclick = clear;
+            }
+
+            function clear() {
+                localStorage.removeItem("game");
+                onLoad();
+            }
+        </script>
+    <body onload="onLoad()">
+            <h3 style="margin:3px">X si 0</h3>
+            <input type="button" name="sqr1" value=" " class="action">
+            <input type="button" name="sqr2" value=" " class="action">
+            <input type="button" name="sqr3" value=" " class="action"><br>
+            <input type="button" name="sqr4" value=" " class="action">
+            <input type="button" name="sqr5" value=" " class="action">
+            <input type="button" name="sqr6" value=" " class="action"><br>
+            <input type="button" name="sqr7" value=" " class="action">
+            <input type="button" name="sqr8" value=" " class="action">
+            <input type="button" name="sqr9" value=" " class="action"><br>
+
+            <input type="button" id="clear" value="clear" >
+    </body>
+</html>
