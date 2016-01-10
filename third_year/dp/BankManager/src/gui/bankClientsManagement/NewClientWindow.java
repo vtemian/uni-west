@@ -2,6 +2,8 @@ package gui.bankClientsManagement;
 
 import java.awt.Dialog;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,6 +22,7 @@ public class NewClientWindow extends JDialog {
 	private JTextField tfName = null;
 	private JLabel lErrName = null;
 	private JTextField tfAddress = null;
+    private JTextField tfEmailAddress = null;
 	private JTextField tfSum = null;
 	private JLabel lErrSum = null;
 	private JComboBox<String> cbAccountType = null;
@@ -43,6 +46,10 @@ public class NewClientWindow extends JDialog {
         return tfAddress;
     }
 
+    public JTextField getTfEmailAddress() {
+        return tfEmailAddress;
+    }
+
     public JTextField getTfSum() {
         return tfSum;
     }
@@ -53,15 +60,22 @@ public class NewClientWindow extends JDialog {
 
     private void initGUI() {
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
-		GridLayout gl = new GridLayout(4, 3);
-		gl.setVgap(3);
+		GridLayout gl = new GridLayout(5, 4);
+		gl.setVgap(4);
 		JPanel pInput = new JPanel(gl);
+
 		JLabel label = new JLabel("Name: ");
 		pInput.add(label);
 		tfName = new JTextField(GUICommons.TEXT_FIELD_LENGHT);
 		pInput.add(tfName);
 		lErrName = new JLabel(" ");
 		pInput.add(lErrName);
+
+        label = new JLabel("Email: ");
+		pInput.add(label);
+		tfEmailAddress = new JTextField(GUICommons.TEXT_FIELD_LENGHT);
+		pInput.add(tfEmailAddress);
+		pInput.add(new JLabel());
 
 		label = new JLabel("Address: ");
 		pInput.add(label);
@@ -92,8 +106,13 @@ public class NewClientWindow extends JDialog {
 
 		bCancel = new JButton("Cancel");
 		pButtons.add(bCancel);
+        final JDialog parent = this;
+        bCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                parent.setVisible(false);
+            }
+        });
 		add(pButtons);
-
 	}
-
 }

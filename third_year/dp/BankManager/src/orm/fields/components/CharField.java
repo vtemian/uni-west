@@ -22,6 +22,11 @@ public class CharField implements IField{
         return "'" + value + "'";
     }
 
+    public String getRawValue(){
+        return value;
+    }
+
+
     public void setMaxSize(Integer maxSize) {
         this.maxSize = maxSize;
     }

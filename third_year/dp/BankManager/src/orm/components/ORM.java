@@ -308,6 +308,7 @@ public class ORM implements IORM{
         // builds the query with the given values
         statement += columns + ") VALUES (" + values + ");";
         // execute the query
+        System.out.println(statement);
         dbConnection.executeSQL(statement, "UPDATE");
     }
 

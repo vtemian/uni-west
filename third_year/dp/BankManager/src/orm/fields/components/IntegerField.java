@@ -17,6 +17,10 @@ public class IntegerField implements IField{
         this.value = value;
     }
 
+    public Integer getRawValue(){
+        return value;
+    }
+
     public String getValue(){
         return "'" + value + "'";
     }

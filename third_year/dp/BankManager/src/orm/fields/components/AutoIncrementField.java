@@ -17,6 +17,11 @@ public class AutoIncrementField implements IField{
         return value.toString();
     }
 
+    public Integer getRawValue(){
+        return value;
+    }
+
+
     public void setValue(ResultSet resultSet, String fieldName){
         try {
             value = resultSet.getInt(fieldName);
