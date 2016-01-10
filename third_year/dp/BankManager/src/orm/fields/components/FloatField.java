@@ -16,6 +16,10 @@ public class FloatField implements IField{
         this.value = value;
     }
 
+    public float getRawValue(){
+        return value;
+    }
+
     public String getValue(){
         return "'" + value + "'";
     }

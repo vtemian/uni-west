@@ -1,3 +1,5 @@
+package models;
+
 public interface Operations {
 	public double getBalance();
 

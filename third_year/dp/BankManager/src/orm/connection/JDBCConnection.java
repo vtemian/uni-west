@@ -65,12 +65,13 @@ public class JDBCConnection implements IConnection{
         ResultSet rs = null;
 
         try{
-            if(type.equals("SELECT"))
+            if(type.equals("SELECT")){
                 // use executeQuery for SELECT statements
                 rs = stmt.executeQuery(sqlStatement);
-            if(type.equals("UPDATE"))
+            } else if(type.equals("UPDATE")) {
                 // otherwise we need to use executeUpdate
                 stmt.executeUpdate(sqlStatement);
+            }
             return rs;
         }catch(SQLException se){
             // handle errors for JDBC

@@ -4,13 +4,11 @@ import orm.connection.IConnection;
 import orm.entity.IEntity;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.*;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Map.Entry;
 
 public class ORM implements IORM{
@@ -60,6 +58,18 @@ public class ORM implements IORM{
         }
     }
 
+    public <T> T[] concatenate (T[] a, T[] b) {
+        int aLen = a.length;
+        int bLen = b.length;
+
+        @SuppressWarnings("unchecked")
+        T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen + bLen);
+        System.arraycopy(a, 0, c, 0, aLen);
+        System.arraycopy(b, 0, c, aLen, bLen);
+
+        return c;
+    }
+
     /**
      * From modelsPackage, get all the classes, and for each classes get their fields.
      * Each field should have a sqlStatement which will indicate it's type(varchar, int etc.)
@@ -76,6 +86,11 @@ public class ORM implements IORM{
             Object instance = null;
             try {
                 // create a new instance for that class
+                if (Modifier.isAbstract(clazz.getModifiers())) continue;
+                if (clazz.getSimpleName().contains("TYPE")) continue;
+                if (clazz.getSimpleName().contains("ClientBuilder")) continue;
+                if (clazz.getSimpleName().contains("Client$1")) continue;
+
                 instance = clazz.newInstance();
             } catch (InstantiationException e) {
                 e.printStackTrace();
@@ -85,8 +100,9 @@ public class ORM implements IORM{
 
             ArrayList<String> sqlStatements = new ArrayList<String>();
 
+            Field[] fields = concatenate(clazz.getSuperclass().getDeclaredFields(), clazz.getDeclaredFields());
             // get all the fields of a given entity
-            for(Field field : clazz.getDeclaredFields()) {
+            for(Field field : fields) {
                 try {
                     Class iField = Class.forName(field.getType().getName());
                     // check to see if a field implements IField
@@ -252,7 +268,8 @@ public class ORM implements IORM{
         Class<?> clazz = entity.getClass();
 
         // retrieve all the fields from Entity class
-        for(Field field : clazz.getDeclaredFields()) {
+        Field[] fieldz = concatenate(clazz.getSuperclass().getDeclaredFields(), clazz.getDeclaredFields());
+        for(Field field : fieldz) {
             try {
                 Class iField = Class.forName(field.getType().getName());
                 // check to see if the field is implementing IField interface
@@ -308,7 +325,6 @@ public class ORM implements IORM{
         // builds the query with the given values
         statement += columns + ") VALUES (" + values + ");";
         // execute the query
-        System.out.println(statement);
         dbConnection.executeSQL(statement, "UPDATE");
     }
 
