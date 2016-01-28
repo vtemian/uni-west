@@ -1,0 +1,1 @@
+A simple display of a background image

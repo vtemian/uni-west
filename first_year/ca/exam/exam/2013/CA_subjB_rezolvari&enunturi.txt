@@ -1,0 +1,82 @@
+Subiectul B. See "model exam", most of the exercises (the requests) are found there.
+
+1)Microprogramming. 
+2)Pipelines. 
+3)PLA - majority function 
+
+A PLA (Programmable Logic Array) is a combinatorial circuit used to implement boolean functions by providing:
+- n input lines (2n internally by also providing their negations)
+- m AND gates each with inputs a subset of the input lines,
+- a n x m matrix of fuses that specify which input goes into the ANDs,
+- p OR gates that take as input outputs of the m AND gates,
+- a matrix of m x p fuses to specify which AND output goes into the OR input,
+
+The circuit is programmed by blowing some of the fuses.
+You must draw the circuit here.
+
+4)How the Mic-1 mircroarchitecture can be improved. 
+
+Add an instruction fetch unit.
+
+5)Caching. 
+
+  The cache is a small, fast memory that holds the most recently used words.
+Locality principles:
+- spatial locality - memory locations close to the requested one are likely to be accessed and are brought from the memory
+- temporal locality - recently addressed memory locations are accessed again, locations not recently accessed are discarded from the cache
+  When a memory word is referenced by a program, the cache controller checks whether the word is in the cache, if not it brings it with its own cache line, after making room by discarding some cache lines.
+  Each cache entry consists of:
+- a valid bit indicating whether the entry has valid data
+- a tag field consisting of a unique value identifying the memory line
+- a data field holding a cache line of 32 bytes
+  Direct-mapped caches:
+- a word in memory can be stored in a single position in the cache
+- if two words in the memory, which use the same position in the cache (or even the same cache line) are heavily used (need to be in the cache) then the respective line will have to be discarded and loaded very often (and the advantages of caching are lost)
+  Set-associative caches:
+- allow one word in the memory to be stored in various (fixed number n of) places in the cache
+when a word has to be brought into the memory, but the corresponding cache line is occupied, the other alterNatives are tried
+- if all lines are occupied, the least recently used line is discarded from the cache to make room for the line coming from the memory
+
+6)What are addressing modes for instructions? Possible addressing modes? Addressing modes found in a RISC architecture. 
+
+  An addressing mode specifies how to calculate the effective memory address of an operand by using information held in registers and/or constants contained within a machine instruction or elsewhere.
+  Addressing Modes:
+- Immediate addressing - specify an operand as part of the instruction (used to specify a small integer constant)
+- Direct addressing - give the full address of the operand in the memory (used to access global variables with known values at compile time)
+- Register addressing - conceptually the same as direct addressing, but use registers instead of a memory location
+- Register indirect addressing - the operand comes or goes from / to memory, but the address is contained in registers (pointers)
+- Indexed addressing - refer to memory words as an offset of a register
+- Base-index addressing - the memory address is computed by adding 2 registers, and optionally an offset
+- Stack addressing - done using reverse Polish notation
+  The addressing mode that appears in RISC designs is register addressing because of its load / store architecture, which implies that the direct addressing does not appear in RISC designs.
+
+7)Describe the IEEE 754 standard, single precision. Represent -3.75 in the standard(hexadecimal representation.) 
+
+32 single precision		sign	exp (8)	fraction (23)
+
+8)Consider the Mic-1 microarchitecture.Describe the role of each register.Describe the memory model of the IJVM.What does the following sequence of microinstructions do?(Explain what happens in the data path for each clock cycle). i1 MAR=SP-1;rd i2 H=TOS; i3 MDR=TOS=MDR OR H; wr i4 MAR=SP; wr; goto Main1
+
+  Registers:
+- MAR (memory address register) - used to hold an address in the local variable frame. Used in connection with the memory access signals rd (the address from where to read), wr (the address where to write data)
+- MDR (memory data register) - used to hold the data that is to be written into the memory (at address indicated by MAR), or where data is brought from memory (address indicated by MAR)
+- PC (program counter) - the address of the next instruction in the method area, used in connection with the fetch signals (which brings the opcode corresponding to the instruction into MBR)
+- MBR (memory byte register) - holds the opcode of the IJVM instruction pointer by PC
+- SP (stack pointer) - the address of the top of the stack
+- LV (local variable) - the address of the bottom of the local variable frame
+- CPP (constant pool pointer) - an address from the constant pool
+- TOS (top of the stack) - the data contained in the memory location at the top of the stack (the one pointed by SP)
+- OPC - scratch register, usually used to save the address of the opcode for a branch instruction while PC is incremented
+
+  The IJVM memory model is partitioned in:
+- constant pool
+	- cannot be written by any IJVM program
+	- constants, strings, pointers to other memory areas live here
+	- CPP contains the pointer to this memory location
+- local variable frame
+	- local variables of the program
+	- pointed to by the LV register
+- operand stack pointed by SP (top address)
+- method area
+	- memory area containing the program
+	- referred to by PC
+

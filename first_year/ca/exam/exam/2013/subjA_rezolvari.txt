@@ -1,0 +1,45 @@
+1. Moore's Law says that every 18 months the number of transistors which a chip manufacturer can put on an integrated circuit doubles. This has led to a faster development of the computers, considering the fact that a larger number of transistors leads to a better processing speed. More transistors means that the prices decrease, that more computers are built, that more companies appear and, of course, to better technology. Still, there is the disadvantage of obsolescence. Since the technology evolves really fast, current technologies become obsolete rather quickly, which can be disadvantageous, with limited resources and the need for continued operations. Thanks to Moore's law, we build computers for less and less, we increase computer power for the same price and we reduce the size of the hardware for the same power.
+
+3. This is a 3-to-8 decoder. A decoder takes n inputs and produces 2^n outputs. Exactly one output will always be 1. It is a combinatorial circuit because it can take multiple inputs and produce multiple outputs. 
+For instance, if A=1, B=0, C=0, D4 will be 1, and all the others will be 0. 
+D0=A’B’C’
+D1=A’B’C
+D2=A’BC’  
+D3=A’BC
+D4=AB’C’
+D5=AB’C
+D6=ABC’
+D7=ABC
+   In this case, A' means A negated.
+
+4. Interrupts are signals to the processor emitted by the hardware or the software indicating that there is an event that needs immediate attention. Hardware interrupts are changes in the flow of control, usually caused by the I/O devices, and are asynchronous with the program (e.g. pressing a key on the keyboard, moving the mouse).
+   As for traps or exceptions, they are a type of synchronous interrupts (e.g. stack overflow, division by 0). Trap handlers are procedures that perform appropriate actions (e.g. error messages).
+   Interrupts stop the running program and control is passed to interrupt handlers. When an interrupt happens, some actions are taken and code runs, but after, the computer should be returned to exactly the same state it had before the interrupt.
+
+7. Explained by Roland in the folder "a little help"
+
+8. Similar to subj B, ex 8. You can find it in "model exam".
+
+  Registers:
+- MAR (memory address register) - used to hold an address in the local variable frame. Used in connection with the memory access signals rd (the address from where to read), wr (the address where to write data)
+- MDR (memory data register) - used to hold the data that is to be written into the memory (at address indicated by MAR), or where data is brought from memory (address indicated by MAR)
+- PC (program counter) - the address of the next instruction in the method area, used in connection with the fetch signals (which brings the opcode corresponding to the instruction into MBR)
+- MBR (memory byte register) - holds the opcode of the IJVM instruction pointer by PC
+- SP (stack pointer) - the address of the top of the stack
+- LV (local variable) - the address of the bottom of the local variable frame
+- CPP (constant pool pointer) - an address from the constant pool
+- TOS (top of the stack) - the data contained in the memory location at the top of the stack (the one pointed by SP)
+- OPC - scratch register, usually used to save the address of the opcode for a branch instruction while PC is incremented
+
+  The IJVM memory model is partitioned in:
+- constant pool
+	- cannot be written by any IJVM program
+	- constants, strings, pointers to other memory areas live here
+	- CPP contains the pointer to this memory location
+- local variable frame
+	- local variables of the program
+	- pointed to by the LV register
+- operand stack pointed by SP (top address)
+- method area
+	- memory area containing the program
+	- referred to by PC
