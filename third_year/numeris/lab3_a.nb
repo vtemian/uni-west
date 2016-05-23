@@ -1,0 +1,163 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.4' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5354,        155]
+NotebookOptionsPosition[      4900,        134]
+NotebookOutlinePosition[      5237,        149]
+CellTagsIndexPosition[      5194,        146]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"goldmin", "[", 
+   RowBox[{"f_", ",", "xl_", ",", " ", "xu_", ",", "es_"}], " ", "]"}], " ", ":=",
+   " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "ea", ",", " ", "iter", ",", " ", "phi", ",", " ", "d", ",", " ", "x1", 
+      ",", " ", "x2", ",", " ", "xopt", ",", " ", "myxu", ",", " ", "myxl"}], 
+     "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"phi", "=", 
+      RowBox[{"N", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           RowBox[{"Sqrt", "[", "5", "]"}]}], ")"}], "/", "2"}], ",", "10"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"iter", "=", "0"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"x1", "=", "0"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"x2", "=", "0"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"d", "=", "0"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"myxu", " ", "=", " ", "xu"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"myxl", " ", "=", " ", "xl"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"While", "[", 
+      RowBox[{"True", ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"d", "=", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"phi", "-", "1"}], ")"}], "*", 
+          RowBox[{"(", 
+           RowBox[{"myxu", "-", "myxl"}], ")"}]}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"x1", "=", 
+         RowBox[{"myxl", "+", "d"}]}], ";", "\n", "        ", 
+        RowBox[{"x2", "=", 
+         RowBox[{"myxu", "-", "d"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"if", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"f", "[", "x1", "]"}], "<", 
+           RowBox[{"f", "[", "x2", "]"}]}], ",", 
+          RowBox[{
+           RowBox[{"xopt", "=", "x1"}], ";", 
+           RowBox[{"myxl", "=", "x2"}]}], ",", 
+          RowBox[{
+           RowBox[{"xopt", "=", "x2"}], ";", 
+           RowBox[{"myxu", "=", "x1"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"iter", "++"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"ea", "=", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"2", "-", "phi"}], ")"}], "*", 
+          RowBox[{"Abs", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"myxu", "-", "myxl"}], ")"}], "/", "xopt"}], "]"}], "*", 
+          "100"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"if", "[", 
+         RowBox[{
+          RowBox[{"ea", "\[LessEqual]", "es"}], ",", 
+          RowBox[{"Break", "[", "]"}]}], "]"}], ";"}]}], 
+      "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Print", "[", "xopt", "]"}], ";"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.667198276900014*^9, 3.66719831679326*^9}, {
+  3.667198459690016*^9, 3.667198463373827*^9}, {3.667198846860805*^9, 
+  3.66719884712041*^9}, {3.667198930324411*^9, 3.667198931435474*^9}, {
+  3.6671995078302603`*^9, 3.667199531321369*^9}, {3.667199626427567*^9, 
+  3.6671996760525007`*^9}, {3.667199711680379*^9, 3.6671997136880817`*^9}, {
+  3.667199751072486*^9, 3.667199753884473*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "[", "x_", "]"}], " ", ":=", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"x", "^", "2"}], "/", "10"}], " ", "-", " ", 
+     RowBox[{"2", "*", 
+      RowBox[{"Sin", "[", "x", "]"}]}]}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", "0", "]"}]}], "Input",
+ CellChangeTimes->{{3.667198527348199*^9, 3.6671985486813803`*^9}}],
+
+Cell[BoxData["0"], "Output",
+ CellChangeTimes->{
+  3.6671985490313663`*^9, {3.6671989207739153`*^9, 3.66719894303859*^9}, {
+   3.6671996950031357`*^9, 3.667199715903616*^9}, 3.667199831242255*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"goldmin", "[", 
+  RowBox[{"f", ",", "0", ",", "4", ",", "3.5"}], "]"}]], "Input",
+ CellChangeTimes->{{3.66719852997795*^9, 3.6671985361446867`*^9}, {
+  3.66719970341529*^9, 3.6671997036521*^9}}],
+
+Cell[BoxData["1.52786404500042060718165266253744752912`9.373037079250063"], \
+"Print",
+ CellChangeTimes->{
+  3.667198347028323*^9, 3.667198470811117*^9, 3.667198538141429*^9, {
+   3.6671989226807833`*^9, 3.667198945791173*^9}, {3.667199697074437*^9, 
+   3.66719971787131*^9}, 3.667199832863405*^9}]
+}, Open  ]]
+},
+WindowSize->{1366, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.4 for Linux x86 (64-bit) (February 25, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 3123, 74, 429, "Input"],
+Cell[CellGroupData[{
+Cell[3706, 98, 423, 12, 77, "Input"],
+Cell[4132, 112, 196, 3, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4365, 120, 218, 4, 32, "Input"],
+Cell[4586, 126, 298, 5, 23, "Print"]
+}, Open  ]]
+}
+]
+*)
+
