@@ -1,0 +1,7 @@
+#!/bin/bash
+countrys=();
+while read line; do
+    countrys=("${countrys[@]}" "$line")
+done
+patter=( ${countrys[@]/*a*/} )
+echo ${patter[@]}

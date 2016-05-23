@@ -1,0 +1,15 @@
+#!/bin/bash
+myvar=`cat /dev/stdin | tr '\n' ' ' | cut -d' ' -f2- `
+for line in $myvar; do
+    echo "$line" | tr -d '\n' | awk '{
+        number = $1;
+        if(number==0)
+            fact=1
+        else
+             fact=number
+
+     for (x = 1; x < number; x++)
+         fact *=x
+     print(fact)}
+    ';
+done

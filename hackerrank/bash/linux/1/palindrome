@@ -1,0 +1,15 @@
+while read line; do
+    echo "$line" | tr -d '\n' | awk '
+        function rev(word,  ret,tmp,i,c) {
+            c=split(word,tmp,"")
+            for (i=c;i>=1;i--)
+                ret=ret tmp[i]
+            return ret
+        }
+        {
+            if ($1 == rev($1))
+                print $1
+            print $1, rev($1)
+        }
+    ';
+done
