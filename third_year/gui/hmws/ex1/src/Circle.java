@@ -8,14 +8,27 @@ public class Circle implements GLEventListener{
 
     public void display(GLAutoDrawable gLDrawable)
     {
+        int i;
         final GL2 gl = gLDrawable.getGL().getGL2();
-        gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
+        int triangleAmount = 200;
 
-        gl.glBegin(GL2.GL_TRIANGLES);
+        double x = 0.1;
+        double y = 0.1;
+        double radius = 0.2f;
+        double twicePi = 2.0f * Math.PI;
+
+        gl.glBegin(GL2.GL_TRIANGLE_FAN);
+
+        for(i = 0; i <= triangleAmount;i++) {
+            gl.glVertex2d(
+                    x + (radius * Math.cos(i *  twicePi / triangleAmount)),
+                    y + (radius * Math.sin(i * twicePi / triangleAmount))
+            );
+        }
+
         gl.glEnd();
 
     }
-
 
     public void displayChanged(GLAutoDrawable gLDrawable, boolean modeChanged, boolean deviceChanged)
     {
